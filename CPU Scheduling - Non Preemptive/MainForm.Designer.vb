@@ -52,13 +52,12 @@ Partial Class MainForm
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.datagridInitial = New System.Windows.Forms.DataGridView()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.labelAveWait = New System.Windows.Forms.Label()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.labelAveTurn = New System.Windows.Forms.Label()
+        Me.processID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.arrivalTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.burstTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelControls = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Clear = New System.Windows.Forms.Button()
         Me.btnRemoveRow = New System.Windows.Forms.Button()
         Me.btnAddRow = New System.Windows.Forms.Button()
         Me.btnFinish = New System.Windows.Forms.Button()
@@ -88,10 +87,13 @@ Partial Class MainForm
         Me.btnAddResident = New System.Windows.Forms.Button()
         Me.btnBackResident = New System.Windows.Forms.ToolStripButton()
         Me.btnForwardResident = New System.Windows.Forms.ToolStripButton()
-        Me.Clear = New System.Windows.Forms.Button()
-        Me.processID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.arrivalTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.burstTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.labelAveWait = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.labelAveTurn = New System.Windows.Forms.Label()
+        Me.panelForGanttChart = New System.Windows.Forms.Panel()
+        Me.tableGanttChart = New System.Windows.Forms.TableLayoutPanel()
         Me.panelTop.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -105,14 +107,15 @@ Partial Class MainForm
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.datagridComputation, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.datagridInitial, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel4.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.panelControls.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.pageSjf.SuspendLayout()
         Me.pagePriority.SuspendLayout()
         CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.panelForGanttChart.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelTitle
@@ -291,15 +294,17 @@ Partial Class MainForm
         '
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel4, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel4, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.panelForGanttChart, 0, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 45)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72.67081!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.32919!))
+        Me.TableLayoutPanel1.RowCount = 3
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(971, 483)
         Me.TableLayoutPanel1.TabIndex = 1
         '
@@ -316,7 +321,7 @@ Partial Class MainForm
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(971, 351)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(971, 313)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'datagridComputation
@@ -368,7 +373,7 @@ Partial Class MainForm
         DataGridViewCellStyle4.Padding = New System.Windows.Forms.Padding(5)
         Me.datagridComputation.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.datagridComputation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.datagridComputation.Size = New System.Drawing.Size(485, 345)
+        Me.datagridComputation.Size = New System.Drawing.Size(485, 310)
         Me.datagridComputation.TabIndex = 11
         '
         'DataGridViewTextBoxColumn3
@@ -444,72 +449,26 @@ Partial Class MainForm
         DataGridViewCellStyle8.Padding = New System.Windows.Forms.Padding(5)
         Me.datagridInitial.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.datagridInitial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.datagridInitial.Size = New System.Drawing.Size(484, 345)
+        Me.datagridInitial.Size = New System.Drawing.Size(484, 310)
         Me.datagridInitial.TabIndex = 10
         '
-        'TableLayoutPanel4
+        'processID
         '
-        Me.TableLayoutPanel4.ColumnCount = 2
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox2, 1, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox1, 0, 0)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 354)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
-        Me.TableLayoutPanel4.RowCount = 1
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(965, 126)
-        Me.TableLayoutPanel4.TabIndex = 1
+        Me.processID.HeaderText = "Process ID"
+        Me.processID.Name = "processID"
+        Me.processID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
         '
-        'GroupBox2
+        'arrivalTime
         '
-        Me.GroupBox2.Controls.Add(Me.labelAveWait)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox2.Location = New System.Drawing.Point(485, 8)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(467, 110)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "AVERAGE WAITING TIME"
+        Me.arrivalTime.HeaderText = "Arrival Time"
+        Me.arrivalTime.Name = "arrivalTime"
+        Me.arrivalTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
         '
-        'labelAveWait
+        'burstTime
         '
-        Me.labelAveWait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labelAveWait.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelAveWait.ForeColor = System.Drawing.Color.Black
-        Me.labelAveWait.Location = New System.Drawing.Point(3, 16)
-        Me.labelAveWait.Name = "labelAveWait"
-        Me.labelAveWait.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.labelAveWait.Size = New System.Drawing.Size(461, 91)
-        Me.labelAveWait.TabIndex = 4
-        Me.labelAveWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.labelAveTurn)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox1.Location = New System.Drawing.Point(13, 8)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(466, 110)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "AVERAGE TURNAROUND TIME"
-        '
-        'labelAveTurn
-        '
-        Me.labelAveTurn.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labelAveTurn.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelAveTurn.ForeColor = System.Drawing.Color.Black
-        Me.labelAveTurn.Location = New System.Drawing.Point(3, 16)
-        Me.labelAveTurn.Name = "labelAveTurn"
-        Me.labelAveTurn.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.labelAveTurn.Size = New System.Drawing.Size(460, 91)
-        Me.labelAveTurn.TabIndex = 3
-        Me.labelAveTurn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.burstTime.HeaderText = "Burst Time"
+        Me.burstTime.Name = "burstTime"
+        Me.burstTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
         '
         'panelControls
         '
@@ -549,6 +508,28 @@ Partial Class MainForm
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(963, 37)
         Me.TableLayoutPanel3.TabIndex = 0
+        '
+        'Clear
+        '
+        Me.Clear.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
+        Me.Clear.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Clear.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
+        Me.Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
+        Me.Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Clear.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Clear.ForeColor = System.Drawing.Color.White
+        Me.Clear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Clear.Location = New System.Drawing.Point(237, 3)
+        Me.Clear.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.Clear.Name = "Clear"
+        Me.Clear.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.Clear.Size = New System.Drawing.Size(103, 31)
+        Me.Clear.TabIndex = 28
+        Me.Clear.TabStop = False
+        Me.Clear.Text = "Clear"
+        Me.Clear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.Clear.UseVisualStyleBackColor = False
         '
         'btnRemoveRow
         '
@@ -916,45 +897,93 @@ Partial Class MainForm
         Me.btnForwardResident.Size = New System.Drawing.Size(23, 38)
         Me.btnForwardResident.ToolTipText = "Next Page"
         '
-        'Clear
+        'TableLayoutPanel4
         '
-        Me.Clear.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
-        Me.Clear.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Clear.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
-        Me.Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
-        Me.Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Clear.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Clear.ForeColor = System.Drawing.Color.White
-        Me.Clear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Clear.Location = New System.Drawing.Point(237, 3)
-        Me.Clear.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.Clear.Name = "Clear"
-        Me.Clear.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.Clear.Size = New System.Drawing.Size(103, 31)
-        Me.Clear.TabIndex = 28
-        Me.Clear.TabStop = False
-        Me.Clear.Text = "Clear"
-        Me.Clear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Clear.UseVisualStyleBackColor = False
+        Me.TableLayoutPanel4.ColumnCount = 2
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox2, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox1, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 388)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.TableLayoutPanel4.RowCount = 1
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(965, 92)
+        Me.TableLayoutPanel4.TabIndex = 2
         '
-        'processID
+        'GroupBox2
         '
-        Me.processID.HeaderText = "Process ID"
-        Me.processID.Name = "processID"
-        Me.processID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.GroupBox2.Controls.Add(Me.labelAveWait)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox2.Location = New System.Drawing.Point(485, 8)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(467, 76)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "AVERAGE WAITING TIME"
         '
-        'arrivalTime
+        'labelAveWait
         '
-        Me.arrivalTime.HeaderText = "Arrival Time"
-        Me.arrivalTime.Name = "arrivalTime"
-        Me.arrivalTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.labelAveWait.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.labelAveWait.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelAveWait.ForeColor = System.Drawing.Color.Black
+        Me.labelAveWait.Location = New System.Drawing.Point(3, 16)
+        Me.labelAveWait.Name = "labelAveWait"
+        Me.labelAveWait.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.labelAveWait.Size = New System.Drawing.Size(461, 57)
+        Me.labelAveWait.TabIndex = 4
+        Me.labelAveWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'burstTime
+        'GroupBox1
         '
-        Me.burstTime.HeaderText = "Burst Time"
-        Me.burstTime.Name = "burstTime"
-        Me.burstTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic
+        Me.GroupBox1.Controls.Add(Me.labelAveTurn)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 8)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(466, 76)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "AVERAGE TURNAROUND TIME"
+        '
+        'labelAveTurn
+        '
+        Me.labelAveTurn.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.labelAveTurn.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelAveTurn.ForeColor = System.Drawing.Color.Black
+        Me.labelAveTurn.Location = New System.Drawing.Point(3, 16)
+        Me.labelAveTurn.Name = "labelAveTurn"
+        Me.labelAveTurn.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.labelAveTurn.Size = New System.Drawing.Size(460, 57)
+        Me.labelAveTurn.TabIndex = 3
+        Me.labelAveTurn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'panelForGanttChart
+        '
+        Me.panelForGanttChart.Controls.Add(Me.tableGanttChart)
+        Me.panelForGanttChart.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelForGanttChart.Location = New System.Drawing.Point(3, 316)
+        Me.panelForGanttChart.Name = "panelForGanttChart"
+        Me.panelForGanttChart.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.panelForGanttChart.Size = New System.Drawing.Size(965, 66)
+        Me.panelForGanttChart.TabIndex = 3
+        '
+        'tableGanttChart
+        '
+        Me.tableGanttChart.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
+        Me.tableGanttChart.ColumnCount = 2
+        Me.tableGanttChart.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableGanttChart.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableGanttChart.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tableGanttChart.Location = New System.Drawing.Point(10, 5)
+        Me.tableGanttChart.Name = "tableGanttChart"
+        Me.tableGanttChart.RowCount = 1
+        Me.tableGanttChart.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableGanttChart.Size = New System.Drawing.Size(945, 56)
+        Me.tableGanttChart.TabIndex = 0
         '
         'MainForm
         '
@@ -981,14 +1010,15 @@ Partial Class MainForm
         Me.TableLayoutPanel2.ResumeLayout(False)
         CType(Me.datagridComputation, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.datagridInitial, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel4.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
         Me.panelControls.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.pageSjf.ResumeLayout(False)
         Me.pagePriority.ResumeLayout(False)
         CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.panelForGanttChart.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1043,13 +1073,15 @@ Partial Class MainForm
     Friend WithEvents btnFinish As Button
     Friend WithEvents btnStart As Button
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents labelAveTurn As Label
-    Friend WithEvents labelAveWait As Label
     Friend WithEvents Clear As Button
     Friend WithEvents processID As DataGridViewTextBoxColumn
     Friend WithEvents arrivalTime As DataGridViewTextBoxColumn
     Friend WithEvents burstTime As DataGridViewTextBoxColumn
+    Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents labelAveWait As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents labelAveTurn As Label
+    Friend WithEvents panelForGanttChart As Panel
+    Friend WithEvents tableGanttChart As TableLayoutPanel
 End Class

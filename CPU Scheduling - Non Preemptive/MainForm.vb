@@ -45,7 +45,7 @@ Public Class MainForm
 
 #Region "     FCFS CONTROLS"
     Private Sub btnAddRow_Click(sender As Object, e As EventArgs) Handles btnAddRow.Click
-        datagridInitial.Rows.Add(currentRowNumber.ToString, "", "")
+        datagridInitial.Rows.Add("P" & currentRowNumber.ToString, "", "")
         currentRowNumber += 1
     End Sub
     Private Sub btnRemoveRow_Click(sender As Object, e As EventArgs) Handles btnRemoveRow.Click
@@ -59,6 +59,9 @@ Public Class MainForm
     End Sub
     Private Sub Clear_Click(sender As Object, e As EventArgs) Handles Clear.Click
         currentRowNumber = 1
+        tableGanttChart.Controls.Clear()
+        tableGanttChart.ColumnStyles.Clear()
+        tableGanttChart.ColumnCount = 0
         btnFCFS.PerformClick()
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
@@ -209,8 +212,8 @@ Public Class MainForm
             loopCount = i
         Next
 
-        datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
-        datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
+        'datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
+        'datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
 
         labelAveWait.Text = totalWaitingTime / datagridInitial.Rows.Count
         labelAveTurn.Text = totalTurnaroundTime / datagridInitial.Rows.Count
@@ -245,11 +248,37 @@ Public Class MainForm
         ' Sort the data using LINQ
         data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
 
+        tableGanttChart.Controls.Clear()
+        tableGanttChart.ColumnStyles.Clear()
+        tableGanttChart.ColumnCount = 0
+
+        ' Add labels to the TableLayoutPanel
+        Dim currentColumn As Integer = 0
+
         ' Clear the DataGridView
         dataGridView.Rows.Clear()
-
+        Dim i As Integer = 0
         ' Add sorted data back to the DataGridView
         For Each process As Process In data
+
+
+            Dim label As New Label()
+            label.Text = process.ProcessID
+            label.TextAlign = ContentAlignment.MiddleCenter
+            label.BackColor = Color.LightBlue
+            label.Dock = DockStyle.Fill
+
+            ' Calculate the width of the column based on the burst time percentage
+            Dim percentSize As Single = process.BurstTime / data.Sum(Function(p) p.BurstTime)
+            Dim columnWidth As Integer = CInt(percentSize * tableGanttChart.Width)
+
+            ' Set the column style and add the label to the TableLayoutPanel
+            tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, columnWidth))
+            tableGanttChart.Controls.Add(label, currentColumn, 0)
+
+            ' Increment the column index
+            currentColumn += 1
+
             dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
         Next
     End Sub
