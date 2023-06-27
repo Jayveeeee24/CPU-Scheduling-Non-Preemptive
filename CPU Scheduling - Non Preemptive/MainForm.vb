@@ -2,6 +2,7 @@
 
 Public Class MainForm
     Dim currentRowNumber As Integer = 1
+    Dim currentPage As String
 #Region "        MAIN"
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         mainTabControl.ItemSize = New Size(0, 1)
@@ -15,17 +16,16 @@ Public Class MainForm
         mainTabControl.SelectedTab = pageFcfs
         labelTitle.Text = "First Come First Serve (FCFS)"
         initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
-        'datagridInitial.Enabled = True
-        'btnAddRow.Enabled = True
-        'btnRemoveRow.Enabled = true
+        currentPage = "FCFS"
 
         btnFCFS.BackColor = Color.FromArgb(52, 152, 219)
         btnSJF.BackColor = Color.FromArgb(25, 117, 211)
         btnPRIO.BackColor = Color.FromArgb(25, 117, 211)
     End Sub
     Private Sub btnSJF_Click(sender As Object, e As EventArgs) Handles btnSJF.Click
-        mainTabControl.SelectedTab = pageSjf
-        currentRowNumber = 1
+        mainTabControl.SelectedTab = pageFcfs
+        initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
+        currentPage = "SJF"
         labelTitle.Text = "Shortest Job First (SJF)"
 
         btnSJF.BackColor = Color.FromArgb(52, 152, 219)
@@ -59,9 +59,6 @@ Public Class MainForm
     End Sub
     Private Sub Clear_Click(sender As Object, e As EventArgs) Handles Clear.Click
         currentRowNumber = 1
-        tableGanttChart.Controls.Clear()
-        tableGanttChart.ColumnStyles.Clear()
-        tableGanttChart.ColumnCount = 0
         btnFCFS.PerformClick()
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
@@ -168,10 +165,8 @@ Public Class MainForm
         labelWait.Text = ""
     End Sub
     Private Function computeFCFS(waitTime As Integer) As Integer
-        Dim loopCount As Integer
 
-        'datagridInitial.Sort(datagridInitial.Columns("processID"), ListSortDirection.Ascending)
-        'datagridInitial.Sort(datagridInitial.Columns("arrivalTime"), ListSortDirection.Ascending)
+        Dim loopCount As Integer
 
         SortDataGridView()
 
@@ -212,8 +207,8 @@ Public Class MainForm
             loopCount = i
         Next
 
-        'datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
-        'datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
+        datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
+        datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
 
         labelAveWait.Text = totalWaitingTime / datagridInitial.Rows.Count
         labelAveTurn.Text = totalTurnaroundTime / datagridInitial.Rows.Count
@@ -227,7 +222,6 @@ Public Class MainForm
         Public Property BurstTime As Integer
     End Class
     Private Sub SortDataGridView()
-        ' Assuming your DataGridView is named "dataGridView1"
         Dim dataGridView As DataGridView = datagridInitial
 
         ' Get the data from the DataGridView
@@ -237,50 +231,118 @@ Public Class MainForm
         For Each row As DataGridViewRow In dataGridView.Rows
             If Not row.IsNewRow Then
                 Dim process As New Process() With {
-                    .ProcessID = row.Cells("processID").Value.ToString(),
-                    .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
-                    .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
-                }
+                .ProcessID = row.Cells("processID").Value.ToString(),
+                .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+                .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
+            }
                 data.Add(process)
             End If
         Next
 
-        ' Sort the data using LINQ
-        data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
+        'actual sorting via list
+        If currentPage = "FCFS" Then
+            data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
+        ElseIf currentPage = "SJF" Then
+            data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
+        End If
 
-        tableGanttChart.Controls.Clear()
-        tableGanttChart.ColumnStyles.Clear()
-        tableGanttChart.ColumnCount = 0
 
-        ' Add labels to the TableLayoutPanel
-        Dim currentColumn As Integer = 0
-
-        ' Clear the DataGridView
         dataGridView.Rows.Clear()
-        Dim i As Integer = 0
+
         ' Add sorted data back to the DataGridView
-        For Each process As Process In data
+        If currentPage = "FCFS" Then
+            For Each process In data
+                dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
+            Next
+        Else
+
+            Dim counter As Integer = 0
+            Dim totalSum As Integer = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+
+            While dataGridView.Rows.Count < data.Count
+                If dataGridView.Rows.Count = 0 Then
+                    dataGridView.Rows.Add(data(0).ProcessID, data(0).ArrivalTime, data(0).BurstTime)
+                Else
+
+                    'selects the value in 'data' list where its
+                    'arrivalTime <= totalSum and
+                    'its processId is not on the datagridview [to check for duplicate values]
+                    'tpos i sort naten sa pinakamababang burstTime
+                    '[tie breakers order]: burstTime, arrivalTime then processId
+                    Dim firstProcess As Process = data.Where(Function(p) p.ArrivalTime <= totalSum AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).FirstOrDefault()
+
+                    If firstProcess IsNot Nothing Then
+                        dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+                        totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+                    Else
+                        totalSum += 1 'increments the totalBurstTime to 1 because there is no value to be next in line
+                    End If
+
+                    'If temp.Count = 0 AndAlso counter = 1 Then
+                    '    totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value)) + 1
+                    'ElseIf temp.Count = 0 AndAlso counter = 0 Then
+                    '    totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+                    '    counter = 1
+                    'End If
+
+                    'For Each process In data
+                    '    If process.ArrivalTime <= totalSum Then
+                    '        MsgBox("processID:" & process.ProcessID & " arrival:" & process.ArrivalTime.ToString & " totalSum:" & totalSum.ToString)
+                    '        temp.Add(process)
+                    '    End If
+                    'Next
+
+                    'For Each row As DataGridViewRow In dataGridView.Rows
+                    '    For Each process In data
+                    '        If process.ProcessID <> row.Cells("processID").Value.ToString() AndAlso process.ArrivalTime <= totalSum Then
+                    '            temp.Add(process)
+                    '            temp = temp.OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
+
+                    '            dataGridView.Rows.Add(temp(0).ProcessID, temp(0).ArrivalTime, temp(0).BurstTime)
+                    '        End If
+                    '    Next
+                    'Next
+
+#Region "hatdog"
+                    'Dim temp As New List(Of Process)()
+
+                    'For Each process In data
+                    '    MsgBox("arrivalTime: " & process.ArrivalTime.ToString & "totalSum: " & totalSum.ToString)
+                    '    If process.ArrivalTime <= totalSum Then
+                    '        temp.Add(process)
+                    '    End If
+                    'Next
+
+                    'If temp.Count = 0 Then
+                    '    totalSum += 1
+                    '    Continue While
+                    'Else
+                    '    totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+                    'End If
+
+                    'For i As Integer = 0 To dataGridView.Rows.Count - 1
+                    '    MsgBox(temp(i).ProcessID.ToString & dataGridView.Rows(i).Cells("processID").Value.ToString)
+                    '    If temp(i).ProcessID = dataGridView.Rows(i).Cells("processID").Value Then
+                    '        MsgBox(temp(i).ProcessID)
+                    '        temp.RemoveAt(i)
+                    '    End If
+                    'Next
+
+                    'If temp.Count <> 0 Then
+                    '    temp = temp.OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
+
+                    '    dataGridView.Rows.Add(temp(0).ProcessID, temp(0).ArrivalTime, temp(0).BurstTime)
+                    'End If
+#End Region
 
 
-            Dim label As New Label()
-            label.Text = process.ProcessID
-            label.TextAlign = ContentAlignment.MiddleCenter
-            label.BackColor = Color.LightBlue
-            label.Dock = DockStyle.Fill
+                End If
 
-            ' Calculate the width of the column based on the burst time percentage
-            Dim percentSize As Single = process.BurstTime / data.Sum(Function(p) p.BurstTime)
-            Dim columnWidth As Integer = CInt(percentSize * tableGanttChart.Width)
 
-            ' Set the column style and add the label to the TableLayoutPanel
-            tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, columnWidth))
-            tableGanttChart.Controls.Add(label, currentColumn, 0)
+            End While
 
-            ' Increment the column index
-            currentColumn += 1
+        End If
 
-            dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
-        Next
     End Sub
 #End Region
 End Class
