@@ -17,6 +17,9 @@ Public Class MainForm
         labelTitle.Text = "First Come First Serve (FCFS)"
         initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
         currentPage = "FCFS"
+        If datagridInitial.Columns.Count = 4 Then
+            datagridInitial.Columns.RemoveAt(3)
+        End If
 
         btnFCFS.BackColor = Color.FromArgb(52, 152, 219)
         btnSJF.BackColor = Color.FromArgb(25, 117, 211)
@@ -27,14 +30,22 @@ Public Class MainForm
         initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
         currentPage = "SJF"
         labelTitle.Text = "Shortest Job First (SJF)"
+        If datagridInitial.Columns.Count = 4 Then
+            datagridInitial.Columns.RemoveAt(3)
+        End If
 
         btnSJF.BackColor = Color.FromArgb(52, 152, 219)
         btnFCFS.BackColor = Color.FromArgb(25, 117, 211)
         btnPRIO.BackColor = Color.FromArgb(25, 117, 211)
     End Sub
     Private Sub btnPRIO_Click(sender As Object, e As EventArgs) Handles btnPRIO.Click
-        mainTabControl.SelectedTab = pagePriority
+        mainTabControl.SelectedTab = pageFcfs
+        initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
+        currentPage = "PRIO"
         labelTitle.Text = "Priority Scheduling"
+        If datagridInitial.Columns.Count < 4 Then
+            datagridInitial.Columns.Add("priority", "Priority")
+        End If
 
         btnPRIO.BackColor = Color.FromArgb(52, 152, 219)
         btnSJF.BackColor = Color.FromArgb(25, 117, 211)
@@ -59,7 +70,13 @@ Public Class MainForm
     End Sub
     Private Sub Clear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         currentRowNumber = 1
-        btnFCFS.PerformClick()
+        If currentPage = "FCFS" Then
+            btnFCFS.PerformClick()
+        ElseIf currentPage = "SJF" Then
+            btnSJF.PerformClick()
+        ElseIf currentPage = "PRIO" Then
+            btnPRIO.PerformClick()
+        End If
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         'cell validation
@@ -229,6 +246,8 @@ Public Class MainForm
         Public Property ProcessID As String
         Public Property ArrivalTime As Integer
         Public Property BurstTime As Integer
+
+        Public Property Priority As Integer
     End Class
     Private Sub SortDataGridView()
         Dim dataGridView As DataGridView = datagridInitial
@@ -239,12 +258,22 @@ Public Class MainForm
         ' Iterate over the DataGridView rows and populate the data list
         For Each row As DataGridViewRow In dataGridView.Rows
             If Not row.IsNewRow Then
-                Dim process As New Process() With {
-                .ProcessID = row.Cells("processID").Value.ToString(),
-                .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
-                .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
-            }
-                data.Add(process)
+                If currentPage = "PRIO" Then
+                    Dim process As New Process() With {
+               .ProcessID = row.Cells("processID").Value.ToString(),
+               .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+               .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value),
+               .Priority = Convert.ToInt32(row.Cells("priority").Value)
+           }
+                    data.Add(process)
+                Else
+                    Dim process As New Process() With {
+               .ProcessID = row.Cells("processID").Value.ToString(),
+               .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+               .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
+           }
+                    data.Add(process)
+                End If
             End If
         Next
 
@@ -258,6 +287,7 @@ Public Class MainForm
                 dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
             Next
         ElseIf currentPage = "SJF" Then
+#Region "DATING CODE"
             'data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
 
             'Dim counter As Integer = 0
@@ -286,10 +316,24 @@ Public Class MainForm
             '    End If
 
             'End While
-            Dim currentTime As Integer = 0
+#End Region
 
+            Dim currentTime As Integer = 0
             While dataGridView.Rows.Count < data.Count
                 Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ToList()
+
+                If eligibleProcesses.Count > 0 Then
+                    Dim firstProcess As Process = eligibleProcesses(0)
+                    dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+                    currentTime += firstProcess.BurstTime
+                Else
+                    currentTime += 1 ' Increment the currentTime by 1 because there is no eligible process to be scheduled
+                End If
+            End While
+        ElseIf currentPage = "PRIO" Then
+            Dim currentTime As Integer = 0
+            While dataGridView.Rows.Count < data.Count
+                Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.Priority).ThenBy(Function(p) p.ArrivalTime).ToList()
 
                 If eligibleProcesses.Count > 0 Then
                     Dim firstProcess As Process = eligibleProcesses(0)
