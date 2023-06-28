@@ -45,6 +45,11 @@ Partial Class MainForm
         Me.pageFcfs = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.labelAveWait = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.labelAveTurn = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.datagridComputation = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -57,7 +62,7 @@ Partial Class MainForm
         Me.burstTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelControls = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Clear = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.btnRemoveRow = New System.Windows.Forms.Button()
         Me.btnAddRow = New System.Windows.Forms.Button()
         Me.btnFinish = New System.Windows.Forms.Button()
@@ -65,9 +70,7 @@ Partial Class MainForm
         Me.btnInfo = New System.Windows.Forms.Button()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.pageSjf = New System.Windows.Forms.TabPage()
-        Me.datagridResidentParent = New System.Windows.Forms.Panel()
         Me.pagePriority = New System.Windows.Forms.TabPage()
-        Me.Panel31 = New System.Windows.Forms.Panel()
         Me.txtSearchResident = New System.Windows.Forms.TextBox()
         Me.ToolStripLabel4 = New System.Windows.Forms.ToolStripLabel()
         Me.txtPageNoResident = New System.Windows.Forms.ToolStripTextBox()
@@ -87,11 +90,8 @@ Partial Class MainForm
         Me.btnAddResident = New System.Windows.Forms.Button()
         Me.btnBackResident = New System.Windows.Forms.ToolStripButton()
         Me.btnForwardResident = New System.Windows.Forms.ToolStripButton()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.labelAveTurn = New System.Windows.Forms.Label()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.labelAveWait = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Panel31 = New System.Windows.Forms.Panel()
+        Me.datagridResidentParent = New System.Windows.Forms.Panel()
         Me.panelTop.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -102,6 +102,9 @@ Partial Class MainForm
         Me.pageFcfs.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.datagridComputation, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.datagridInitial, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -110,9 +113,6 @@ Partial Class MainForm
         Me.pageSjf.SuspendLayout()
         Me.pagePriority.SuspendLayout()
         CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.TableLayoutPanel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelTitle
@@ -304,6 +304,70 @@ Partial Class MainForm
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(971, 483)
         Me.TableLayoutPanel1.TabIndex = 1
         '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.ColumnCount = 2
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox2, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox1, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 341)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
+        Me.TableLayoutPanel4.RowCount = 1
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(965, 139)
+        Me.TableLayoutPanel4.TabIndex = 2
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.labelAveWait)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox2.Location = New System.Drawing.Point(485, 8)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(467, 123)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "AVERAGE WAITING TIME"
+        '
+        'labelAveWait
+        '
+        Me.labelAveWait.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.labelAveWait.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelAveWait.ForeColor = System.Drawing.Color.Black
+        Me.labelAveWait.Location = New System.Drawing.Point(3, 16)
+        Me.labelAveWait.Name = "labelAveWait"
+        Me.labelAveWait.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.labelAveWait.Size = New System.Drawing.Size(461, 104)
+        Me.labelAveWait.TabIndex = 4
+        Me.labelAveWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.labelAveTurn)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 8)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(466, 123)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "AVERAGE TURNAROUND TIME"
+        '
+        'labelAveTurn
+        '
+        Me.labelAveTurn.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.labelAveTurn.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelAveTurn.ForeColor = System.Drawing.Color.Black
+        Me.labelAveTurn.Location = New System.Drawing.Point(3, 16)
+        Me.labelAveTurn.Name = "labelAveTurn"
+        Me.labelAveTurn.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.labelAveTurn.Size = New System.Drawing.Size(460, 104)
+        Me.labelAveTurn.TabIndex = 3
+        Me.labelAveTurn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 2
@@ -369,7 +433,7 @@ Partial Class MainForm
         DataGridViewCellStyle4.Padding = New System.Windows.Forms.Padding(5)
         Me.datagridComputation.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.datagridComputation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.datagridComputation.Size = New System.Drawing.Size(485, 335)
+        Me.datagridComputation.Size = New System.Drawing.Size(485, 332)
         Me.datagridComputation.TabIndex = 11
         '
         'DataGridViewTextBoxColumn3
@@ -445,7 +509,7 @@ Partial Class MainForm
         DataGridViewCellStyle8.Padding = New System.Windows.Forms.Padding(5)
         Me.datagridInitial.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.datagridInitial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.datagridInitial.Size = New System.Drawing.Size(484, 335)
+        Me.datagridInitial.Size = New System.Drawing.Size(484, 332)
         Me.datagridInitial.TabIndex = 10
         '
         'processID
@@ -490,7 +554,7 @@ Partial Class MainForm
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.Clear, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnClear, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnRemoveRow, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnAddRow, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnFinish, 5, 0)
@@ -505,27 +569,27 @@ Partial Class MainForm
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(963, 37)
         Me.TableLayoutPanel3.TabIndex = 0
         '
-        'Clear
+        'btnClear
         '
-        Me.Clear.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
-        Me.Clear.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Clear.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
-        Me.Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
-        Me.Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Clear.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Clear.ForeColor = System.Drawing.Color.White
-        Me.Clear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Clear.Location = New System.Drawing.Point(237, 3)
-        Me.Clear.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.Clear.Name = "Clear"
-        Me.Clear.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.Clear.Size = New System.Drawing.Size(103, 31)
-        Me.Clear.TabIndex = 28
-        Me.Clear.TabStop = False
-        Me.Clear.Text = "Clear"
-        Me.Clear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Clear.UseVisualStyleBackColor = False
+        Me.btnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
+        Me.btnClear.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnClear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
+        Me.btnClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
+        Me.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClear.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.ForeColor = System.Drawing.Color.White
+        Me.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnClear.Location = New System.Drawing.Point(237, 3)
+        Me.btnClear.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnClear.Size = New System.Drawing.Size(103, 31)
+        Me.btnClear.TabIndex = 28
+        Me.btnClear.TabStop = False
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnClear.UseVisualStyleBackColor = False
         '
         'btnRemoveRow
         '
@@ -656,15 +720,6 @@ Partial Class MainForm
         Me.pageSjf.TabIndex = 8
         Me.pageSjf.Text = "SJF"
         '
-        'datagridResidentParent
-        '
-        Me.datagridResidentParent.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.datagridResidentParent.Location = New System.Drawing.Point(5, 5)
-        Me.datagridResidentParent.Name = "datagridResidentParent"
-        Me.datagridResidentParent.Padding = New System.Windows.Forms.Padding(7, 7, 7, 0)
-        Me.datagridResidentParent.Size = New System.Drawing.Size(967, 524)
-        Me.datagridResidentParent.TabIndex = 13
-        '
         'pagePriority
         '
         Me.pagePriority.BackColor = System.Drawing.SystemColors.Control
@@ -675,15 +730,6 @@ Partial Class MainForm
         Me.pagePriority.Size = New System.Drawing.Size(977, 534)
         Me.pagePriority.TabIndex = 7
         Me.pagePriority.Text = "Priority"
-        '
-        'Panel31
-        '
-        Me.Panel31.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel31.Location = New System.Drawing.Point(5, 5)
-        Me.Panel31.Name = "Panel31"
-        Me.Panel31.Padding = New System.Windows.Forms.Padding(7, 7, 7, 0)
-        Me.Panel31.Size = New System.Drawing.Size(967, 529)
-        Me.Panel31.TabIndex = 19
         '
         'txtSearchResident
         '
@@ -893,69 +939,23 @@ Partial Class MainForm
         Me.btnForwardResident.Size = New System.Drawing.Size(23, 38)
         Me.btnForwardResident.ToolTipText = "Next Page"
         '
-        'GroupBox1
+        'Panel31
         '
-        Me.GroupBox1.Controls.Add(Me.labelAveTurn)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox1.Location = New System.Drawing.Point(13, 8)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(466, 123)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "AVERAGE TURNAROUND TIME"
+        Me.Panel31.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel31.Location = New System.Drawing.Point(5, 5)
+        Me.Panel31.Name = "Panel31"
+        Me.Panel31.Padding = New System.Windows.Forms.Padding(7, 7, 7, 0)
+        Me.Panel31.Size = New System.Drawing.Size(967, 529)
+        Me.Panel31.TabIndex = 19
         '
-        'labelAveTurn
+        'datagridResidentParent
         '
-        Me.labelAveTurn.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labelAveTurn.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelAveTurn.ForeColor = System.Drawing.Color.Black
-        Me.labelAveTurn.Location = New System.Drawing.Point(3, 16)
-        Me.labelAveTurn.Name = "labelAveTurn"
-        Me.labelAveTurn.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.labelAveTurn.Size = New System.Drawing.Size(460, 104)
-        Me.labelAveTurn.TabIndex = 3
-        Me.labelAveTurn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.labelAveWait)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox2.Location = New System.Drawing.Point(485, 8)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(467, 123)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "AVERAGE WAITING TIME"
-        '
-        'labelAveWait
-        '
-        Me.labelAveWait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labelAveWait.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelAveWait.ForeColor = System.Drawing.Color.Black
-        Me.labelAveWait.Location = New System.Drawing.Point(3, 16)
-        Me.labelAveWait.Name = "labelAveWait"
-        Me.labelAveWait.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.labelAveWait.Size = New System.Drawing.Size(461, 104)
-        Me.labelAveWait.TabIndex = 4
-        Me.labelAveWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'TableLayoutPanel4
-        '
-        Me.TableLayoutPanel4.ColumnCount = 2
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox2, 1, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox1, 0, 0)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 341)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(10, 5, 10, 5)
-        Me.TableLayoutPanel4.RowCount = 1
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(965, 139)
-        Me.TableLayoutPanel4.TabIndex = 2
+        Me.datagridResidentParent.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.datagridResidentParent.Location = New System.Drawing.Point(5, 5)
+        Me.datagridResidentParent.Name = "datagridResidentParent"
+        Me.datagridResidentParent.Padding = New System.Windows.Forms.Padding(7, 7, 7, 0)
+        Me.datagridResidentParent.Size = New System.Drawing.Size(967, 524)
+        Me.datagridResidentParent.TabIndex = 13
         '
         'MainForm
         '
@@ -968,7 +968,7 @@ Partial Class MainForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "CPU Scheduling"
+        Me.Text = "CPU Scheduling Simulator"
         Me.panelTop.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
@@ -979,6 +979,9 @@ Partial Class MainForm
         Me.pageFcfs.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         CType(Me.datagridComputation, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.datagridInitial, System.ComponentModel.ISupportInitialize).EndInit()
@@ -987,9 +990,6 @@ Partial Class MainForm
         Me.pageSjf.ResumeLayout(False)
         Me.pagePriority.ResumeLayout(False)
         CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.TableLayoutPanel4.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1005,9 +1005,7 @@ Partial Class MainForm
     Friend WithEvents mainTabControl As TabControl
     Friend WithEvents pageFcfs As TabPage
     Friend WithEvents pageSjf As TabPage
-    Friend WithEvents datagridResidentParent As Panel
     Friend WithEvents pagePriority As TabPage
-    Friend WithEvents Panel31 As Panel
     Friend WithEvents btnSearchResident As Button
     Friend WithEvents txtSearchResident As TextBox
     Friend WithEvents btnFilterResident As Button
@@ -1044,7 +1042,7 @@ Partial Class MainForm
     Friend WithEvents btnFinish As Button
     Friend WithEvents btnStart As Button
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents Clear As Button
+    Friend WithEvents btnClear As Button
     Friend WithEvents processID As DataGridViewTextBoxColumn
     Friend WithEvents arrivalTime As DataGridViewTextBoxColumn
     Friend WithEvents burstTime As DataGridViewTextBoxColumn
@@ -1053,4 +1051,6 @@ Partial Class MainForm
     Friend WithEvents labelAveWait As Label
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents labelAveTurn As Label
+    Friend WithEvents datagridResidentParent As Panel
+    Friend WithEvents Panel31 As Panel
 End Class

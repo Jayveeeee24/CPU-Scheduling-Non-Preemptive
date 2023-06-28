@@ -57,7 +57,7 @@ Public Class MainForm
             MsgBox("There is no more rows to remove!", vbExclamation, "Warning")
         End If
     End Sub
-    Private Sub Clear_Click(sender As Object, e As EventArgs) Handles Clear.Click
+    Private Sub Clear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         currentRowNumber = 1
         btnFCFS.PerformClick()
     End Sub
@@ -71,6 +71,9 @@ Public Class MainForm
         If (btnStart.Text = "Start") Then
             btnStart.Text = "Stop"
             btnFinish.Enabled = False
+            btnAddRow.Enabled = False
+            btnRemoveRow.Enabled = False
+            btnClear.Enabled = False
 
             btnStart.BackColor = Color.FromArgb(192, 57, 43)
             btnStart.FlatAppearance.MouseDownBackColor = Color.FromArgb(231, 76, 60)
@@ -79,6 +82,9 @@ Public Class MainForm
         Else
             btnStart.Text = "Start"
             btnFinish.Enabled = True
+            btnAddRow.Enabled = True
+            btnRemoveRow.Enabled = True
+            btnClear.Enabled = True
 
             btnStart.BackColor = Color.FromArgb(39, 174, 96)
             btnStart.FlatAppearance.MouseDownBackColor = Color.FromArgb(46, 204, 113)
@@ -93,6 +99,9 @@ Public Class MainForm
             datagridInitial.ClearSelection()
             datagridComputation.ClearSelection()
             btnFinish.Enabled = True
+            btnAddRow.Enabled = True
+            btnRemoveRow.Enabled = True
+            btnClear.Enabled = True
             btnStart.Text = "Start"
 
             btnStart.BackColor = Color.FromArgb(39, 174, 96)
@@ -239,106 +248,56 @@ Public Class MainForm
             End If
         Next
 
+        dataGridView.Rows.Clear()
         'actual sorting via list
         If currentPage = "FCFS" Then
             data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
-        ElseIf currentPage = "SJF" Then
-            data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
-        End If
 
-
-        dataGridView.Rows.Clear()
-
-        ' Add sorted data back to the DataGridView
-        If currentPage = "FCFS" Then
+            ' Add sorted data back to the DataGridView
             For Each process In data
                 dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
             Next
-        Else
+        ElseIf currentPage = "SJF" Then
+            'data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
 
-            Dim counter As Integer = 0
-            Dim totalSum As Integer = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+            'Dim counter As Integer = 0
+            'Dim totalSum As Integer = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+
+            'While dataGridView.Rows.Count < data.Count
+
+            '    If dataGridView.Rows.Count = 0 Then
+            '        dataGridView.Rows.Add(data(0).ProcessID, data(0).ArrivalTime, data(0).BurstTime)
+            '    Else
+
+            '        'selects the value in 'data' list where its
+            '        'arrivalTime <= totalSum and
+            '        'its processId is not on the datagridview [to check for duplicate values]
+            '        'tpos i sort naten sa pinakamababang burstTime
+            '        '[tie breakers order]: burstTime, arrivalTime then processId
+            '        Dim firstProcess As Process = data.Where(Function(p) p.ArrivalTime <= totalSum AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).FirstOrDefault()
+
+            '        If firstProcess IsNot Nothing Then
+            '            dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+            '            totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+            '        Else
+            '            totalSum += 1 'increments the totalBurstTime to 1 because there is no value to be next in line
+            '        End If
+
+            '    End If
+
+            'End While
+            Dim currentTime As Integer = 0
 
             While dataGridView.Rows.Count < data.Count
-                If dataGridView.Rows.Count = 0 Then
-                    dataGridView.Rows.Add(data(0).ProcessID, data(0).ArrivalTime, data(0).BurstTime)
+                Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ToList()
+
+                If eligibleProcesses.Count > 0 Then
+                    Dim firstProcess As Process = eligibleProcesses(0)
+                    dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+                    currentTime += firstProcess.BurstTime
                 Else
-
-                    'selects the value in 'data' list where its
-                    'arrivalTime <= totalSum and
-                    'its processId is not on the datagridview [to check for duplicate values]
-                    'tpos i sort naten sa pinakamababang burstTime
-                    '[tie breakers order]: burstTime, arrivalTime then processId
-                    Dim firstProcess As Process = data.Where(Function(p) p.ArrivalTime <= totalSum AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).FirstOrDefault()
-
-                    If firstProcess IsNot Nothing Then
-                        dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
-                        totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
-                    Else
-                        totalSum += 1 'increments the totalBurstTime to 1 because there is no value to be next in line
-                    End If
-
-                    'If temp.Count = 0 AndAlso counter = 1 Then
-                    '    totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value)) + 1
-                    'ElseIf temp.Count = 0 AndAlso counter = 0 Then
-                    '    totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
-                    '    counter = 1
-                    'End If
-
-                    'For Each process In data
-                    '    If process.ArrivalTime <= totalSum Then
-                    '        MsgBox("processID:" & process.ProcessID & " arrival:" & process.ArrivalTime.ToString & " totalSum:" & totalSum.ToString)
-                    '        temp.Add(process)
-                    '    End If
-                    'Next
-
-                    'For Each row As DataGridViewRow In dataGridView.Rows
-                    '    For Each process In data
-                    '        If process.ProcessID <> row.Cells("processID").Value.ToString() AndAlso process.ArrivalTime <= totalSum Then
-                    '            temp.Add(process)
-                    '            temp = temp.OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
-
-                    '            dataGridView.Rows.Add(temp(0).ProcessID, temp(0).ArrivalTime, temp(0).BurstTime)
-                    '        End If
-                    '    Next
-                    'Next
-
-#Region "hatdog"
-                    'Dim temp As New List(Of Process)()
-
-                    'For Each process In data
-                    '    MsgBox("arrivalTime: " & process.ArrivalTime.ToString & "totalSum: " & totalSum.ToString)
-                    '    If process.ArrivalTime <= totalSum Then
-                    '        temp.Add(process)
-                    '    End If
-                    'Next
-
-                    'If temp.Count = 0 Then
-                    '    totalSum += 1
-                    '    Continue While
-                    'Else
-                    '    totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
-                    'End If
-
-                    'For i As Integer = 0 To dataGridView.Rows.Count - 1
-                    '    MsgBox(temp(i).ProcessID.ToString & dataGridView.Rows(i).Cells("processID").Value.ToString)
-                    '    If temp(i).ProcessID = dataGridView.Rows(i).Cells("processID").Value Then
-                    '        MsgBox(temp(i).ProcessID)
-                    '        temp.RemoveAt(i)
-                    '    End If
-                    'Next
-
-                    'If temp.Count <> 0 Then
-                    '    temp = temp.OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
-
-                    '    dataGridView.Rows.Add(temp(0).ProcessID, temp(0).ArrivalTime, temp(0).BurstTime)
-                    'End If
-#End Region
-
-
+                    currentTime += 1 ' Increment the currentTime by 1 because there is no eligible process to be scheduled
                 End If
-
-
             End While
 
         End If
