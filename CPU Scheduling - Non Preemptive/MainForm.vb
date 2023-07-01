@@ -157,6 +157,7 @@ Public Class MainForm
         Dim randomRows As Integer = random.Next(3, 10)
 
         datagridInitial.Rows.Clear()
+        datagridComputation.Rows.Clear()
         currentRowNumber = 1
         For i As Integer = 0 To randomRows
             btnAddRow.PerformClick()
