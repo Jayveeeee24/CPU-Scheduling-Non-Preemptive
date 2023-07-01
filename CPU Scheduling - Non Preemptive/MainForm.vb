@@ -1,11 +1,11 @@
 ﻿Imports System.ComponentModel
+Imports System.Threading
 
 Public Class MainForm
-    Dim currentRowNumber As Integer = 1
+    Dim currentRowNumber As Int32 = 1
     Dim currentPage As String
 #Region "        MAIN"
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        mainTabControl.ItemSize = New Size(0, 1)
 
         btnFCFS.PerformClick()
     End Sub
@@ -13,7 +13,6 @@ Public Class MainForm
 
 #Region "   NAVIGATIONS"
     Private Sub btnFCFS_Click(sender As Object, e As EventArgs) Handles btnFCFS.Click
-        mainTabControl.SelectedTab = pageFcfs
         labelTitle.Text = "First Come First Serve (FCFS)"
         initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
         currentPage = "FCFS"
@@ -26,7 +25,6 @@ Public Class MainForm
         btnPRIO.BackColor = Color.FromArgb(25, 117, 211)
     End Sub
     Private Sub btnSJF_Click(sender As Object, e As EventArgs) Handles btnSJF.Click
-        mainTabControl.SelectedTab = pageFcfs
         initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
         currentPage = "SJF"
         labelTitle.Text = "Shortest Job First (SJF)"
@@ -39,7 +37,6 @@ Public Class MainForm
         btnPRIO.BackColor = Color.FromArgb(25, 117, 211)
     End Sub
     Private Sub btnPRIO_Click(sender As Object, e As EventArgs) Handles btnPRIO.Click
-        mainTabControl.SelectedTab = pageFcfs
         initialSetup(datagridInitial, datagridComputation, btnAddRow, labelAveTurn, labelAveWait)
         currentPage = "PRIO"
         labelTitle.Text = "Priority Scheduling"
@@ -56,7 +53,7 @@ Public Class MainForm
 
 #Region "     FCFS CONTROLS"
     Private Sub btnAddRow_Click(sender As Object, e As EventArgs) Handles btnAddRow.Click
-        datagridInitial.Rows.Add("P" & currentRowNumber.ToString, "", "")
+        datagridInitial.Rows.Add("P" & currentRowNumber.ToString("D2"), "", "")
         currentRowNumber += 1
     End Sub
     Private Sub btnRemoveRow_Click(sender As Object, e As EventArgs) Handles btnRemoveRow.Click
@@ -110,7 +107,7 @@ Public Class MainForm
             Exit Sub
         End If
 
-        If computeFCFS(0.6) = datagridInitial.Rows.Count - 1 Then
+        If computeFCFS(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Start" Then
             MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
             datagridInitial.ClearSelection()
@@ -140,9 +137,58 @@ Public Class MainForm
         If (e.FormattedValue Is Nothing Or e.FormattedValue = "" Or String.IsNullOrWhiteSpace(e.FormattedValue)) Then
             MsgBox("Value cannot be null!", vbExclamation, "Null Data Input")
             e.Cancel = True
+            Exit Sub
+        End If
+
+        If e.ColumnIndex > 0 Then
+            Dim value As String = e.FormattedValue.ToString()
+            Dim number As Integer
+            If Not Integer.TryParse(value, number) Then
+                e.Cancel = True
+                MsgBox("Please enter a valid number.", vbCritical, "Warning")
+            End If
         End If
     End Sub
     Private Sub btnInfo_Click(sender As Object, e As EventArgs) Handles btnInfo.Click
+
+    End Sub
+    Private Sub btnRandom_Click(sender As Object, e As EventArgs) Handles btnRandom.Click
+        Dim random As New Random()
+        Dim randomRows As Integer = random.Next(3, 10)
+
+        datagridInitial.Rows.Clear()
+        currentRowNumber = 1
+        For i As Integer = 0 To randomRows
+            btnAddRow.PerformClick()
+        Next
+
+        For i As Integer = 0 To datagridInitial.Rows.Count - 1
+            If currentPage = "PRIO" Then
+                For j As Integer = 1 To 3
+                    Dim randomArrival As Integer = random.Next(0, 10)
+                    Dim randomBurst As Integer = random.Next(1, 10)
+                    Dim randomPriority As Integer = random.Next(1, 5)
+                    If j = 1 Then
+                        datagridInitial.Rows(i).Cells(j).Value = randomArrival
+                    ElseIf j = 2 Then
+                        datagridInitial.Rows(i).Cells(j).Value = randomBurst
+                    Else
+                        datagridInitial.Rows(i).Cells(j).Value = randomPriority
+                    End If
+                Next
+            Else
+                For j As Integer = 1 To 2
+                    Dim randomArrival As Integer = random.Next(0, 10)
+                    Dim randomBurst As Integer = random.Next(1, 10)
+                    If j = 1 Then
+                        datagridInitial.Rows(i).Cells(j).Value = randomArrival
+                    Else
+                        datagridInitial.Rows(i).Cells(j).Value = randomBurst
+                    End If
+                Next
+            End If
+        Next
+
 
     End Sub
 #End Region
@@ -236,8 +282,8 @@ Public Class MainForm
         datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
         datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
 
-        labelAveWait.Text = totalWaitingTime / datagridInitial.Rows.Count
-        labelAveTurn.Text = totalTurnaroundTime / datagridInitial.Rows.Count
+        labelAveWait.Text = Math.Round(totalWaitingTime / datagridInitial.Rows.Count, 2)
+        labelAveTurn.Text = Math.Round(totalTurnaroundTime / datagridInitial.Rows.Count, 2)
 
 
         Return loopCount
@@ -287,6 +333,7 @@ Public Class MainForm
                 dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
             Next
         ElseIf currentPage = "SJF" Then
+
 #Region "DATING CODE"
             'data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
 
@@ -347,5 +394,6 @@ Public Class MainForm
         End If
 
     End Sub
+
 #End Region
 End Class

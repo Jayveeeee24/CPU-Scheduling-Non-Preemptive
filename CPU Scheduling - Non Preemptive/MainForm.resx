@@ -155,6 +155,18 @@
         zLrS2iK5mU3lAUIjcmVy+axcjElO7NNxHGcvRfEF+O8FDae+XicAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="btnInfo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAWVJREFUSEvd
+        lUlOAzEQRTtCYgHiGAx3yCUgElkyLSA5CxwDAgchSAwHYDoFRLAk/zkpKXJ32aazgi89yXYNblXb5erf
+        a1X0xbV4FZM5jFnbF/i0Uk+8i58M+OyJYq2IC2EJ7sWZ2BJrcxiz9iDM71wQm5Ul/xIHoiM8YTsS34IY
+        YpOiLJa8y0Kh8LVNyNEofpbV/JCFBt2J8WxY07EglhyNP57TggN19cpC8tvZsCZiHgU5OF013QiMp2HW
+        TgNBjqswi/QmMG6GWTttC3K8hFkkLhBGjqEn7OBpXWD/DLNILGLEyVNugw2B/SPMIlmJuESechskS0Rv
+        wcgN9ZTbYCiwX4ZZpJJjmtoge0wXLxrXv0mpDU4ENkrtdli6Ik7LtIpdFlKiK+JIANffKxfCxpdbcmKz
+        ouXaJkBduaE7giMMjFl7EuZX3K5NpQ8ONf/Vg7MofhYnYiSehT2ZjOk3Sz2Zf0FVNQVa3H3h5CcgJAAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="DataGridViewTextBoxColumn3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -176,18 +188,6 @@
   <metadata name="burstTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="btnInfo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAWVJREFUSEvd
-        lUlOAzEQRTtCYgHiGAx3yCUgElkyLSA5CxwDAgchSAwHYDoFRLAk/zkpKXJ32aazgi89yXYNblXb5erf
-        a1X0xbV4FZM5jFnbF/i0Uk+8i58M+OyJYq2IC2EJ7sWZ2BJrcxiz9iDM71wQm5Ul/xIHoiM8YTsS34IY
-        YpOiLJa8y0Kh8LVNyNEofpbV/JCFBt2J8WxY07EglhyNP57TggN19cpC8tvZsCZiHgU5OF013QiMp2HW
-        TgNBjqswi/QmMG6GWTttC3K8hFkkLhBGjqEn7OBpXWD/DLNILGLEyVNugw2B/SPMIlmJuESechskS0Rv
-        wcgN9ZTbYCiwX4ZZpJJjmtoge0wXLxrXv0mpDU4ENkrtdli6Ik7LtIpdFlKiK+JIANffKxfCxpdbcmKz
-        ouXaJkBduaE7giMMjFl7EuZX3K5NpQ8ONf/Vg7MofhYnYiSehT2ZjOk3Sz2Zf0FVNQVa3H3h5CcgJAAA
-        AABJRU5ErkJggg==
-</value>
-  </data>
   <metadata name="DataGridViewTextBoxColumn4.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
