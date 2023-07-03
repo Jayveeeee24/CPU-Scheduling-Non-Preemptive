@@ -110,7 +110,7 @@ Public Class MainForm
             Exit Sub
         End If
 
-        If compute(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Start" Then
+        If compute(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Stop" Then
             MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
             datagridInitial.ClearSelection()
@@ -579,6 +579,7 @@ Public Class MainForm
             label.BackColor = Color.LightBlue
             label.Dock = DockStyle.Fill
             Dim columnWidth As Integer = CInt((process.BurstTime / data.Sum(Function(p) p.BurstTime)) * (tableGanttChart.Width - 1)) ' Subtracting 1 to account for the last column adjustment
+            wait(0.6)
             tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, columnWidth))
             tableGanttChart.Controls.Add(label, currentColumn, 0)
 
