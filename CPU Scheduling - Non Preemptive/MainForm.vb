@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Drawing.Printing
 Imports System.Threading
 
 Public Class MainForm
@@ -570,6 +571,7 @@ Public Class MainForm
                 idleLabel.Text = "Idle"
                 idleLabel.TextAlign = ContentAlignment.MiddleCenter
                 idleLabel.BackColor = Color.Gray
+                idleLabel.Margin = New Padding(0)
                 idleLabel.Dock = DockStyle.Fill
                 Dim idleColumnWidth As Integer = CInt((idleTime / data.Sum(Function(p) p.BurstTime)) * (tableGanttChart.Width - 1)) ' Subtracting 1 to account for the last column adjustment
                 tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, idleColumnWidth))
@@ -584,6 +586,7 @@ Public Class MainForm
             label.Text = process.ProcessID
             label.TextAlign = ContentAlignment.MiddleCenter
             label.BackColor = Color.LightBlue
+            label.Margin = New Padding(0)
             label.Dock = DockStyle.Fill
             Dim columnWidth As Integer = CInt((process.BurstTime / data.Sum(Function(p) p.BurstTime)) * (tableGanttChart.Width - 1)) ' Subtracting 1 to account for the last column adjustment
             wait(waitTime)

@@ -11,4 +11,3 @@ C:\D\Project Files\Visual Studio\CPU Scheduling - Non Preemptive\CPU Scheduling 
 C:\D\Project Files\Visual Studio\CPU Scheduling - Non Preemptive\CPU Scheduling - Non Preemptive\obj\Debug\CPU Scheduling - Non Preemptive.xml
 C:\D\Project Files\Visual Studio\CPU Scheduling - Non Preemptive\CPU Scheduling - Non Preemptive\obj\Debug\CPU Scheduling - Non Preemptive.pdb
 C:\D\Project Files\Visual Studio\CPU Scheduling - Non Preemptive\CPU Scheduling - Non Preemptive\obj\Debug\CPU_Scheduling___Non_Preemptive.MainForm.resources
-C:\D\Project Files\Visual Studio\CPU Scheduling - Non Preemptive\CPU Scheduling - Non Preemptive\obj\Debug\CPU_Scheduling___Non_Preemptive.Form1.resources
