@@ -40,11 +40,6 @@ Partial Class MainForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.labelAveWait = New System.Windows.Forms.Label()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.labelAveTurn = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.datagridComputation = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -56,6 +51,15 @@ Partial Class MainForm
         Me.arrivalTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.burstTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.panelControls = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnRandom = New System.Windows.Forms.Button()
+        Me.btnFinish = New System.Windows.Forms.Button()
+        Me.btnStart = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
+        Me.btnRemoveRow = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btnAddRow = New System.Windows.Forms.Button()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.txtSearchResident = New System.Windows.Forms.TextBox()
         Me.ToolStripLabel4 = New System.Windows.Forms.ToolStripLabel()
         Me.txtPageNoResident = New System.Windows.Forms.ToolStripTextBox()
@@ -70,24 +74,23 @@ Partial Class MainForm
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.labelAveWait = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.labelAveTurn = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.btnPRIO = New System.Windows.Forms.Button()
         Me.btnSJF = New System.Windows.Forms.Button()
         Me.btnFCFS = New System.Windows.Forms.Button()
+        Me.btnInfo = New System.Windows.Forms.Button()
         Me.btnSearchResident = New System.Windows.Forms.Button()
         Me.btnFilterResident = New System.Windows.Forms.Button()
         Me.btnAddResident = New System.Windows.Forms.Button()
         Me.btnBackResident = New System.Windows.Forms.ToolStripButton()
         Me.btnForwardResident = New System.Windows.Forms.ToolStripButton()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.btnAddRow = New System.Windows.Forms.Button()
-        Me.btnRemoveRow = New System.Windows.Forms.Button()
-        Me.btnClear = New System.Windows.Forms.Button()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.btnStart = New System.Windows.Forms.Button()
-        Me.btnFinish = New System.Windows.Forms.Button()
-        Me.btnRandom = New System.Windows.Forms.Button()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.btnInfo = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.tableGanttChart = New System.Windows.Forms.TableLayoutPanel()
         Me.panelTop.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -96,15 +99,16 @@ Partial Class MainForm
         Me.panelLogo.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.TableLayoutPanel4.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.datagridComputation, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.datagridInitial, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelControls.SuspendLayout()
-        CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel3.SuspendLayout()
+        CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'labelTitle
@@ -190,86 +194,19 @@ Partial Class MainForm
         '
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel4, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel4, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel4, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel2, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(5, 50)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowCount = 3
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(975, 509)
         Me.TableLayoutPanel1.TabIndex = 1
-        '
-        'TableLayoutPanel4
-        '
-        Me.TableLayoutPanel4.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
-        Me.TableLayoutPanel4.ColumnCount = 2
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox2, 1, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox1, 0, 0)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(0, 359)
-        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(0, 3, 0, 3)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(0, 0, 0, 5)
-        Me.TableLayoutPanel4.RowCount = 1
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(975, 147)
-        Me.TableLayoutPanel4.TabIndex = 2
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.labelAveWait)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox2.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(491, 4)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(480, 134)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "AVERAGE WAITING TIME"
-        '
-        'labelAveWait
-        '
-        Me.labelAveWait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labelAveWait.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelAveWait.ForeColor = System.Drawing.Color.Black
-        Me.labelAveWait.Location = New System.Drawing.Point(3, 17)
-        Me.labelAveWait.Name = "labelAveWait"
-        Me.labelAveWait.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.labelAveWait.Size = New System.Drawing.Size(474, 114)
-        Me.labelAveWait.TabIndex = 4
-        Me.labelAveWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.labelAveTurn)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(4, 4)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(480, 134)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "AVERAGE TURNAROUND TIME"
-        '
-        'labelAveTurn
-        '
-        Me.labelAveTurn.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labelAveTurn.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelAveTurn.ForeColor = System.Drawing.Color.Black
-        Me.labelAveTurn.Location = New System.Drawing.Point(3, 17)
-        Me.labelAveTurn.Name = "labelAveTurn"
-        Me.labelAveTurn.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.labelAveTurn.Size = New System.Drawing.Size(474, 114)
-        Me.labelAveTurn.TabIndex = 3
-        Me.labelAveTurn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TableLayoutPanel2
         '
@@ -284,8 +221,8 @@ Partial Class MainForm
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 356.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(975, 356)
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 330.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(975, 305)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'datagridComputation
@@ -337,7 +274,7 @@ Partial Class MainForm
         DataGridViewCellStyle14.Padding = New System.Windows.Forms.Padding(5)
         Me.datagridComputation.RowsDefaultCellStyle = DataGridViewCellStyle14
         Me.datagridComputation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.datagridComputation.Size = New System.Drawing.Size(487, 350)
+        Me.datagridComputation.Size = New System.Drawing.Size(487, 299)
         Me.datagridComputation.TabIndex = 11
         '
         'DataGridViewTextBoxColumn3
@@ -413,7 +350,7 @@ Partial Class MainForm
         DataGridViewCellStyle18.Padding = New System.Windows.Forms.Padding(5)
         Me.datagridInitial.RowsDefaultCellStyle = DataGridViewCellStyle18
         Me.datagridInitial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.datagridInitial.Size = New System.Drawing.Size(486, 350)
+        Me.datagridInitial.Size = New System.Drawing.Size(486, 299)
         Me.datagridInitial.TabIndex = 10
         '
         'processID
@@ -445,6 +382,181 @@ Partial Class MainForm
         Me.panelControls.Padding = New System.Windows.Forms.Padding(3)
         Me.panelControls.Size = New System.Drawing.Size(975, 45)
         Me.panelControls.TabIndex = 0
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 9
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.5!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.5!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.btnInfo, 8, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnRandom, 6, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnFinish, 5, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnStart, 4, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnClear, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnRemoveRow, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel2, 3, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnAddRow, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel3, 7, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(967, 37)
+        Me.TableLayoutPanel3.TabIndex = 0
+        '
+        'btnRandom
+        '
+        Me.btnRandom.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnRandom.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnRandom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.btnRandom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.btnRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRandom.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRandom.ForeColor = System.Drawing.Color.White
+        Me.btnRandom.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnRandom.Location = New System.Drawing.Point(717, 3)
+        Me.btnRandom.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnRandom.Name = "btnRandom"
+        Me.btnRandom.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnRandom.Size = New System.Drawing.Size(104, 31)
+        Me.btnRandom.TabIndex = 36
+        Me.btnRandom.TabStop = False
+        Me.btnRandom.Text = "Random"
+        Me.btnRandom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnRandom.UseVisualStyleBackColor = False
+        '
+        'btnFinish
+        '
+        Me.btnFinish.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(211, Byte), Integer))
+        Me.btnFinish.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnFinish.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnFinish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        Me.btnFinish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        Me.btnFinish.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnFinish.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFinish.ForeColor = System.Drawing.Color.White
+        Me.btnFinish.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnFinish.Location = New System.Drawing.Point(601, 3)
+        Me.btnFinish.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnFinish.Name = "btnFinish"
+        Me.btnFinish.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnFinish.Size = New System.Drawing.Size(104, 31)
+        Me.btnFinish.TabIndex = 35
+        Me.btnFinish.TabStop = False
+        Me.btnFinish.Text = "Finish"
+        Me.btnFinish.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnFinish.UseVisualStyleBackColor = False
+        '
+        'btnStart
+        '
+        Me.btnStart.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
+        Me.btnStart.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnStart.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnStart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.btnStart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnStart.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnStart.ForeColor = System.Drawing.Color.White
+        Me.btnStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnStart.Location = New System.Drawing.Point(485, 3)
+        Me.btnStart.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnStart.Name = "btnStart"
+        Me.btnStart.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnStart.Size = New System.Drawing.Size(104, 31)
+        Me.btnStart.TabIndex = 34
+        Me.btnStart.TabStop = False
+        Me.btnStart.Text = "Start"
+        Me.btnStart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnStart.UseVisualStyleBackColor = False
+        '
+        'btnClear
+        '
+        Me.btnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
+        Me.btnClear.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnClear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
+        Me.btnClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
+        Me.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClear.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.ForeColor = System.Drawing.Color.White
+        Me.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnClear.Location = New System.Drawing.Point(239, 3)
+        Me.btnClear.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnClear.Size = New System.Drawing.Size(104, 31)
+        Me.btnClear.TabIndex = 32
+        Me.btnClear.TabStop = False
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnClear.UseVisualStyleBackColor = False
+        '
+        'btnRemoveRow
+        '
+        Me.btnRemoveRow.BackColor = System.Drawing.Color.FromArgb(CType(CType(211, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnRemoveRow.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnRemoveRow.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnRemoveRow.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.btnRemoveRow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.btnRemoveRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRemoveRow.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnRemoveRow.ForeColor = System.Drawing.Color.White
+        Me.btnRemoveRow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnRemoveRow.Location = New System.Drawing.Point(123, 3)
+        Me.btnRemoveRow.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnRemoveRow.Name = "btnRemoveRow"
+        Me.btnRemoveRow.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnRemoveRow.Size = New System.Drawing.Size(104, 31)
+        Me.btnRemoveRow.TabIndex = 31
+        Me.btnRemoveRow.TabStop = False
+        Me.btnRemoveRow.Text = "Remove"
+        Me.btnRemoveRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnRemoveRow.UseVisualStyleBackColor = False
+        '
+        'Panel2
+        '
+        Me.Panel2.Location = New System.Drawing.Point(351, 3)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(124, 31)
+        Me.Panel2.TabIndex = 33
+        '
+        'btnAddRow
+        '
+        Me.btnAddRow.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(133, Byte), Integer))
+        Me.btnAddRow.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnAddRow.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnAddRow.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(133, Byte), Integer))
+        Me.btnAddRow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(133, Byte), Integer))
+        Me.btnAddRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAddRow.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddRow.ForeColor = System.Drawing.Color.White
+        Me.btnAddRow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnAddRow.Location = New System.Drawing.Point(7, 3)
+        Me.btnAddRow.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnAddRow.Name = "btnAddRow"
+        Me.btnAddRow.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.btnAddRow.Size = New System.Drawing.Size(104, 31)
+        Me.btnAddRow.TabIndex = 30
+        Me.btnAddRow.TabStop = False
+        Me.btnAddRow.Text = "Add Row"
+        Me.btnAddRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnAddRow.UseVisualStyleBackColor = False
+        '
+        'Panel3
+        '
+        Me.Panel3.Location = New System.Drawing.Point(829, 3)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(95, 31)
+        Me.Panel3.TabIndex = 37
         '
         'txtSearchResident
         '
@@ -570,6 +682,85 @@ Partial Class MainForm
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
+        Me.TableLayoutPanel4.ColumnCount = 2
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox2, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.GroupBox1, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(0, 409)
+        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(0, 3, 0, 3)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(0, 0, 0, 5)
+        Me.TableLayoutPanel4.RowCount = 1
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(975, 97)
+        Me.TableLayoutPanel4.TabIndex = 3
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.labelAveWait)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox2.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(491, 4)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(480, 84)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "AVERAGE WAITING TIME"
+        '
+        'labelAveWait
+        '
+        Me.labelAveWait.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.labelAveWait.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelAveWait.ForeColor = System.Drawing.Color.Black
+        Me.labelAveWait.Location = New System.Drawing.Point(3, 17)
+        Me.labelAveWait.Name = "labelAveWait"
+        Me.labelAveWait.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.labelAveWait.Size = New System.Drawing.Size(474, 64)
+        Me.labelAveWait.TabIndex = 4
+        Me.labelAveWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.labelAveTurn)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(4, 4)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(480, 84)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "AVERAGE TURNAROUND TIME"
+        '
+        'labelAveTurn
+        '
+        Me.labelAveTurn.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.labelAveTurn.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelAveTurn.ForeColor = System.Drawing.Color.Black
+        Me.labelAveTurn.Location = New System.Drawing.Point(3, 17)
+        Me.labelAveTurn.Name = "labelAveTurn"
+        Me.labelAveTurn.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.labelAveTurn.Size = New System.Drawing.Size(474, 64)
+        Me.labelAveTurn.TabIndex = 3
+        Me.labelAveTurn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.tableGanttChart)
+        Me.Panel4.Controls.Add(Me.Label2)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel4.Location = New System.Drawing.Point(3, 308)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Padding = New System.Windows.Forms.Padding(5)
+        Me.Panel4.Size = New System.Drawing.Size(969, 95)
+        Me.Panel4.TabIndex = 5
+        '
         'btnPRIO
         '
         Me.btnPRIO.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(211, Byte), Integer))
@@ -638,6 +829,27 @@ Partial Class MainForm
         Me.btnFCFS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnFCFS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnFCFS.UseVisualStyleBackColor = False
+        '
+        'btnInfo
+        '
+        Me.btnInfo.BackColor = System.Drawing.Color.Transparent
+        Me.btnInfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnInfo.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.btnInfo.FlatAppearance.BorderSize = 0
+        Me.btnInfo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.btnInfo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.btnInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnInfo.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnInfo.ForeColor = System.Drawing.Color.White
+        Me.btnInfo.Image = CType(resources.GetObject("btnInfo.Image"), System.Drawing.Image)
+        Me.btnInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnInfo.Location = New System.Drawing.Point(934, 3)
+        Me.btnInfo.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
+        Me.btnInfo.Name = "btnInfo"
+        Me.btnInfo.Size = New System.Drawing.Size(28, 31)
+        Me.btnInfo.TabIndex = 38
+        Me.btnInfo.TabStop = False
+        Me.btnInfo.UseVisualStyleBackColor = False
         '
         'btnSearchResident
         '
@@ -723,201 +935,32 @@ Partial Class MainForm
         Me.btnForwardResident.Size = New System.Drawing.Size(23, 38)
         Me.btnForwardResident.ToolTipText = "Next Page"
         '
-        'TableLayoutPanel3
+        'Label2
         '
-        Me.TableLayoutPanel3.ColumnCount = 9
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.5!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.5!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.btnInfo, 8, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnRandom, 6, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnFinish, 5, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnStart, 4, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnClear, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnRemoveRow, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Panel2, 3, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnAddRow, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Panel3, 7, 0)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 1
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(967, 37)
-        Me.TableLayoutPanel3.TabIndex = 0
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(5, 5)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.Label2.Size = New System.Drawing.Size(959, 39)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Gantt Chart"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'btnAddRow
+        'tableGanttChart
         '
-        Me.btnAddRow.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(133, Byte), Integer))
-        Me.btnAddRow.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnAddRow.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnAddRow.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(133, Byte), Integer))
-        Me.btnAddRow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(133, Byte), Integer))
-        Me.btnAddRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAddRow.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddRow.ForeColor = System.Drawing.Color.White
-        Me.btnAddRow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnAddRow.Location = New System.Drawing.Point(7, 3)
-        Me.btnAddRow.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnAddRow.Name = "btnAddRow"
-        Me.btnAddRow.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.btnAddRow.Size = New System.Drawing.Size(104, 31)
-        Me.btnAddRow.TabIndex = 30
-        Me.btnAddRow.TabStop = False
-        Me.btnAddRow.Text = "Add Row"
-        Me.btnAddRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnAddRow.UseVisualStyleBackColor = False
-        '
-        'btnRemoveRow
-        '
-        Me.btnRemoveRow.BackColor = System.Drawing.Color.FromArgb(CType(CType(211, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnRemoveRow.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnRemoveRow.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnRemoveRow.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.btnRemoveRow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.btnRemoveRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRemoveRow.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnRemoveRow.ForeColor = System.Drawing.Color.White
-        Me.btnRemoveRow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnRemoveRow.Location = New System.Drawing.Point(123, 3)
-        Me.btnRemoveRow.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnRemoveRow.Name = "btnRemoveRow"
-        Me.btnRemoveRow.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.btnRemoveRow.Size = New System.Drawing.Size(104, 31)
-        Me.btnRemoveRow.TabIndex = 31
-        Me.btnRemoveRow.TabStop = False
-        Me.btnRemoveRow.Text = "Remove"
-        Me.btnRemoveRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnRemoveRow.UseVisualStyleBackColor = False
-        '
-        'btnClear
-        '
-        Me.btnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(142, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(173, Byte), Integer))
-        Me.btnClear.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnClear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
-        Me.btnClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(155, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(182, Byte), Integer))
-        Me.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnClear.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClear.ForeColor = System.Drawing.Color.White
-        Me.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnClear.Location = New System.Drawing.Point(239, 3)
-        Me.btnClear.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.btnClear.Size = New System.Drawing.Size(104, 31)
-        Me.btnClear.TabIndex = 32
-        Me.btnClear.TabStop = False
-        Me.btnClear.Text = "Clear"
-        Me.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnClear.UseVisualStyleBackColor = False
-        '
-        'Panel2
-        '
-        Me.Panel2.Location = New System.Drawing.Point(351, 3)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(124, 31)
-        Me.Panel2.TabIndex = 33
-        '
-        'btnStart
-        '
-        Me.btnStart.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
-        Me.btnStart.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnStart.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnStart.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.btnStart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(46, Byte), Integer), CType(CType(204, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnStart.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnStart.ForeColor = System.Drawing.Color.White
-        Me.btnStart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnStart.Location = New System.Drawing.Point(485, 3)
-        Me.btnStart.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnStart.Name = "btnStart"
-        Me.btnStart.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.btnStart.Size = New System.Drawing.Size(104, 31)
-        Me.btnStart.TabIndex = 34
-        Me.btnStart.TabStop = False
-        Me.btnStart.Text = "Start"
-        Me.btnStart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnStart.UseVisualStyleBackColor = False
-        '
-        'btnFinish
-        '
-        Me.btnFinish.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(211, Byte), Integer))
-        Me.btnFinish.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnFinish.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnFinish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        Me.btnFinish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        Me.btnFinish.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnFinish.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnFinish.ForeColor = System.Drawing.Color.White
-        Me.btnFinish.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnFinish.Location = New System.Drawing.Point(601, 3)
-        Me.btnFinish.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnFinish.Name = "btnFinish"
-        Me.btnFinish.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.btnFinish.Size = New System.Drawing.Size(104, 31)
-        Me.btnFinish.TabIndex = 35
-        Me.btnFinish.TabStop = False
-        Me.btnFinish.Text = "Finish"
-        Me.btnFinish.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnFinish.UseVisualStyleBackColor = False
-        '
-        'btnRandom
-        '
-        Me.btnRandom.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnRandom.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnRandom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.btnRandom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.btnRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRandom.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnRandom.ForeColor = System.Drawing.Color.White
-        Me.btnRandom.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnRandom.Location = New System.Drawing.Point(717, 3)
-        Me.btnRandom.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnRandom.Name = "btnRandom"
-        Me.btnRandom.Padding = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.btnRandom.Size = New System.Drawing.Size(104, 31)
-        Me.btnRandom.TabIndex = 36
-        Me.btnRandom.TabStop = False
-        Me.btnRandom.Text = "Random"
-        Me.btnRandom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnRandom.UseVisualStyleBackColor = False
-        '
-        'Panel3
-        '
-        Me.Panel3.Location = New System.Drawing.Point(829, 3)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(95, 31)
-        Me.Panel3.TabIndex = 37
-        '
-        'btnInfo
-        '
-        Me.btnInfo.BackColor = System.Drawing.Color.Transparent
-        Me.btnInfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnInfo.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnInfo.FlatAppearance.BorderSize = 0
-        Me.btnInfo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnInfo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnInfo.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnInfo.ForeColor = System.Drawing.Color.White
-        Me.btnInfo.Image = CType(resources.GetObject("btnInfo.Image"), System.Drawing.Image)
-        Me.btnInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnInfo.Location = New System.Drawing.Point(934, 3)
-        Me.btnInfo.Margin = New System.Windows.Forms.Padding(7, 3, 5, 3)
-        Me.btnInfo.Name = "btnInfo"
-        Me.btnInfo.Size = New System.Drawing.Size(28, 31)
-        Me.btnInfo.TabIndex = 38
-        Me.btnInfo.TabStop = False
-        Me.btnInfo.UseVisualStyleBackColor = False
+        Me.tableGanttChart.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
+        Me.tableGanttChart.ColumnCount = 2
+        Me.tableGanttChart.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableGanttChart.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableGanttChart.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tableGanttChart.Location = New System.Drawing.Point(5, 44)
+        Me.tableGanttChart.Name = "tableGanttChart"
+        Me.tableGanttChart.RowCount = 1
+        Me.tableGanttChart.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tableGanttChart.Size = New System.Drawing.Size(959, 46)
+        Me.tableGanttChart.TabIndex = 7
         '
         'MainForm
         '
@@ -939,15 +982,16 @@ Partial Class MainForm
         Me.panelLogo.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel4.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         CType(Me.datagridComputation, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.datagridInitial, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelControls.ResumeLayout(False)
-        CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel3.ResumeLayout(False)
+        CType(Me.datagridResident, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -981,11 +1025,6 @@ Partial Class MainForm
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Panel1 As Panel
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents labelAveWait As Label
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents labelAveTurn As Label
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents datagridComputation As DataGridView
     Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
@@ -1007,4 +1046,12 @@ Partial Class MainForm
     Friend WithEvents btnRandom As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnInfo As Button
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents labelAveWait As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents labelAveTurn As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents tableGanttChart As TableLayoutPanel
 End Class

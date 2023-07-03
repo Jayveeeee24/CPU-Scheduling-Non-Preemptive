@@ -74,6 +74,9 @@ Public Class MainForm
         ElseIf currentPage = "PRIO" Then
             btnPRIO.PerformClick()
         End If
+        tableGanttChart.Controls.Clear()
+        tableGanttChart.ColumnStyles.Clear()
+        tableGanttChart.ColumnCount = 0
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         'cell validation
@@ -107,7 +110,7 @@ Public Class MainForm
             Exit Sub
         End If
 
-        If computeFCFS(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Start" Then
+        If compute(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Start" Then
             MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
             datagridInitial.ClearSelection()
@@ -127,7 +130,7 @@ Public Class MainForm
         If cellValidation() = True Then
             Exit Sub
         End If
-        computeFCFS(0)
+        compute(0)
         MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
         datagridInitial.ClearSelection()
@@ -229,6 +232,9 @@ Public Class MainForm
 
         datagridInitial.Rows.Clear()
         datagridDestination.Rows.Clear()
+        tableGanttChart.Controls.Clear()
+        tableGanttChart.ColumnStyles.Clear()
+        tableGanttChart.ColumnCount = 0
 
         For i As Integer = 0 To 2
             btnAdd.PerformClick()
@@ -237,7 +243,7 @@ Public Class MainForm
         labelTurn.Text = ""
         labelWait.Text = ""
     End Sub
-    Private Function computeFCFS(waitTime As Integer) As Integer
+    Private Function compute(waitTime As Integer) As Integer
 
         Dim loopCount As Integer
 
@@ -250,6 +256,7 @@ Public Class MainForm
         Dim totalTurnaroundTime As Integer = 0
         Dim completionTime As Integer = 0
         Dim turnAroundTime As Integer = 0
+
         For i As Integer = 0 To datagridInitial.Rows.Count - 1
             If currentTime < datagridInitial.Rows(i).Cells(1).Value Then
                 currentTime = datagridInitial.Rows(i).Cells(1).Value
@@ -289,6 +296,7 @@ Public Class MainForm
 
         Return loopCount
     End Function
+
     Public Class Process
         Public Property ProcessID As String
         Public Property ArrivalTime As Integer
@@ -296,6 +304,211 @@ Public Class MainForm
 
         Public Property Priority As Integer
     End Class
+
+#Region "Sorting na walang idle states"
+    '    Private Sub SortDataGridView()
+    '        Dim dataGridView As DataGridView = datagridInitial
+
+    '        ' Get the data from the DataGridView
+    '        Dim data As New List(Of Process)()
+
+    '        ' Iterate over the DataGridView rows and populate the data list
+    '        For Each row As DataGridViewRow In dataGridView.Rows
+    '            If Not row.IsNewRow Then
+    '                If currentPage = "PRIO" Then
+    '                    Dim process As New Process() With {
+    '               .ProcessID = row.Cells("processID").Value.ToString(),
+    '               .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+    '               .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value),
+    '               .Priority = Convert.ToInt32(row.Cells("priority").Value)
+    '           }
+    '                    data.Add(process)
+    '                Else
+    '                    Dim process As New Process() With {
+    '               .ProcessID = row.Cells("processID").Value.ToString(),
+    '               .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+    '               .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
+    '           }
+    '                    data.Add(process)
+    '                End If
+    '            End If
+    '        Next
+
+    '        dataGridView.Rows.Clear()
+    '        'actual sorting via list
+    '        If currentPage = "FCFS" Then
+    '            data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
+    '            tableGanttChart.Controls.Clear()
+    '            tableGanttChart.ColumnStyles.Clear()
+    '            tableGanttChart.ColumnCount = 0
+    '            Dim currentColumn As Integer = 0
+
+    '            ' Add sorted data back to the DataGridView
+    '            For Each process In data
+
+    '                Dim label As New Label()
+    '                label.Text = process.ProcessID
+    '                label.TextAlign = ContentAlignment.MiddleCenter
+    '                label.BackColor = Color.LightBlue
+    '                label.Dock = DockStyle.Fill
+    '                Dim percentSize As Single = process.BurstTime / data.Sum(Function(p) p.BurstTime)
+    '                Dim columnWidth As Integer = CInt(percentSize * tableGanttChart.Width)
+
+    '                ' Set the column style and add the label to the TableLayoutPanel
+    '                tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, columnWidth))
+    '                tableGanttChart.Controls.Add(label, currentColumn, 0)
+
+    '                ' Increment the column index
+    '                currentColumn += 1
+
+    '                dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
+    '            Next
+    '        ElseIf currentPage = "SJF" Then
+
+    '#Region "DATING CODE"
+    '            'data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
+
+    '            'Dim counter As Integer = 0
+    '            'Dim totalSum As Integer = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+
+    '            'While dataGridView.Rows.Count < data.Count
+
+    '            '    If dataGridView.Rows.Count = 0 Then
+    '            '        dataGridView.Rows.Add(data(0).ProcessID, data(0).ArrivalTime, data(0).BurstTime)
+    '            '    Else
+
+    '            '        'selects the value in 'data' list where its
+    '            '        'arrivalTime <= totalSum and
+    '            '        'its processId is not on the datagridview [to check for duplicate values]
+    '            '        'tpos i sort naten sa pinakamababang burstTime
+    '            '        '[tie breakers order]: burstTime, arrivalTime then processId
+    '            '        Dim firstProcess As Process = data.Where(Function(p) p.ArrivalTime <= totalSum AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).FirstOrDefault()
+
+    '            '        If firstProcess IsNot Nothing Then
+    '            '            dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+    '            '            totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
+    '            '        Else
+    '            '            totalSum += 1 'increments the totalBurstTime to 1 because there is no value to be next in line
+    '            '        End If
+
+    '            '    End If
+
+    '            'End While
+    '#End Region
+
+    '            Dim currentTime As Integer = 0
+    '            While dataGridView.Rows.Count < data.Count
+    '                Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ToList()
+
+    '                If eligibleProcesses.Count > 0 Then
+    '                    Dim firstProcess As Process = eligibleProcesses(0)
+    '                    dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+    '                    currentTime += firstProcess.BurstTime
+    '                Else
+    '                    currentTime += 1 ' Increment the currentTime by 1 because there is no eligible process to be scheduled
+    '                End If
+    '            End While
+    '        ElseIf currentPage = "PRIO" Then
+    '            Dim currentTime As Integer = 0
+    '            While dataGridView.Rows.Count < data.Count
+    '                Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.Priority).ThenBy(Function(p) p.ArrivalTime).ToList()
+
+    '                If eligibleProcesses.Count > 0 Then
+    '                    Dim firstProcess As Process = eligibleProcesses(0)
+    '                    dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
+    '                    currentTime += firstProcess.BurstTime
+    '                Else
+    '                    currentTime += 1 ' Increment the currentTime by 1 because there is no eligible process to be scheduled
+    '                End If
+    '            End While
+
+    '        End If
+
+    '    End Sub
+#End Region
+
+#Region "Sorting with the idle state"
+    'Private Sub SortDataGridView()
+    '    Dim dataGridView As DataGridView = datagridInitial
+
+    '    ' Get the data from the DataGridView
+    '    Dim data As New List(Of Process)()
+
+    '    ' Iterate over the DataGridView rows and populate the data list
+    '    For Each row As DataGridViewRow In dataGridView.Rows
+    '        If Not row.IsNewRow Then
+    '            If currentPage = "PRIO" Then
+    '                Dim process As New Process() With {
+    '                    .ProcessID = row.Cells("processID").Value.ToString(),
+    '                    .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+    '                    .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value),
+    '                    .Priority = Convert.ToInt32(row.Cells("priority").Value)
+    '                }
+    '                data.Add(process)
+    '            Else
+    '                Dim process As New Process() With {
+    '                    .ProcessID = row.Cells("processID").Value.ToString(),
+    '                    .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+    '                    .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
+    '                }
+    '                data.Add(process)
+    '            End If
+    '        End If
+    '    Next
+
+    '    ' Sort the data based on the scheduling algorithm
+    '    If currentPage = "FCFS" Then
+    '        data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
+    '    ElseIf currentPage = "SJF" Then
+    '        data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
+    '    ElseIf currentPage = "PRIO" Then
+    '        data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.Priority).ThenBy(Function(p) p.ProcessID).ToList()
+    '    End If
+
+    '    dataGridView.Rows.Clear()
+    '    tableGanttChart.Controls.Clear()
+    '    tableGanttChart.ColumnStyles.Clear()
+    '    tableGanttChart.ColumnCount = 0
+    '    Dim currentColumn As Integer = 0
+    '    Dim currentTime As Integer = 0
+
+    '    ' Add sorted data and idle states to the Gantt Chart
+    '    For Each process In data
+    '        ' Add idle state if there is a gap between processes
+    '        If process.ArrivalTime > currentTime Then
+    '            Dim idleTime = process.ArrivalTime - currentTime
+
+    '            Dim idleLabel As New Label()
+    '            idleLabel.Text = "Idle"
+    '            idleLabel.TextAlign = ContentAlignment.MiddleCenter
+    '            idleLabel.BackColor = Color.Gray
+    '            idleLabel.Dock = DockStyle.Fill
+    '            Dim idleColumnWidth As Integer = CInt((idleTime / data.Sum(Function(p) p.BurstTime)) * tableGanttChart.Width)
+    '            tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, idleColumnWidth))
+    '            tableGanttChart.Controls.Add(idleLabel, currentColumn, 0)
+    '            currentColumn += 1
+
+    '            currentTime += idleTime
+    '        End If
+
+    '        ' Add the process to the Gantt Chart
+    '        Dim label As New Label()
+    '        label.Text = process.ProcessID
+    '        label.TextAlign = ContentAlignment.MiddleCenter
+    '        label.BackColor = Color.LightBlue
+    '        label.Dock = DockStyle.Fill
+    '        Dim columnWidth As Integer = CInt((process.BurstTime / data.Sum(Function(p) p.BurstTime)) * tableGanttChart.Width)
+    '        tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, columnWidth))
+    '        tableGanttChart.Controls.Add(label, currentColumn, 0)
+    '        currentColumn += 1
+
+    '        ' Add the process to the DataGridView
+    '        dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
+    '        currentTime += process.BurstTime
+    '    Next
+    'End Sub
+#End Region
+
     Private Sub SortDataGridView()
         Dim dataGridView As DataGridView = datagridInitial
 
@@ -307,93 +520,77 @@ Public Class MainForm
             If Not row.IsNewRow Then
                 If currentPage = "PRIO" Then
                     Dim process As New Process() With {
-               .ProcessID = row.Cells("processID").Value.ToString(),
-               .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
-               .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value),
-               .Priority = Convert.ToInt32(row.Cells("priority").Value)
-           }
+                    .ProcessID = row.Cells("processID").Value.ToString(),
+                    .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+                    .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value),
+                    .Priority = Convert.ToInt32(row.Cells("priority").Value)
+                }
                     data.Add(process)
                 Else
                     Dim process As New Process() With {
-               .ProcessID = row.Cells("processID").Value.ToString(),
-               .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
-               .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
-           }
+                    .ProcessID = row.Cells("processID").Value.ToString(),
+                    .ArrivalTime = Convert.ToInt32(row.Cells("arrivalTime").Value),
+                    .BurstTime = Convert.ToInt32(row.Cells("burstTime").Value)
+                }
                     data.Add(process)
                 End If
             End If
         Next
 
-        dataGridView.Rows.Clear()
-        'actual sorting via list
+        ' Sort the data based on the scheduling algorithm
         If currentPage = "FCFS" Then
             data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.ProcessID).ToList()
-
-            ' Add sorted data back to the DataGridView
-            For Each process In data
-                dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
-            Next
         ElseIf currentPage = "SJF" Then
-
-#Region "DATING CODE"
-            'data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
-
-            'Dim counter As Integer = 0
-            'Dim totalSum As Integer = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
-
-            'While dataGridView.Rows.Count < data.Count
-
-            '    If dataGridView.Rows.Count = 0 Then
-            '        dataGridView.Rows.Add(data(0).ProcessID, data(0).ArrivalTime, data(0).BurstTime)
-            '    Else
-
-            '        'selects the value in 'data' list where its
-            '        'arrivalTime <= totalSum and
-            '        'its processId is not on the datagridview [to check for duplicate values]
-            '        'tpos i sort naten sa pinakamababang burstTime
-            '        '[tie breakers order]: burstTime, arrivalTime then processId
-            '        Dim firstProcess As Process = data.Where(Function(p) p.ArrivalTime <= totalSum AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).FirstOrDefault()
-
-            '        If firstProcess IsNot Nothing Then
-            '            dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
-            '            totalSum = dataGridView.Rows.Cast(Of DataGridViewRow)().Sum(Function(row1) Convert.ToInt32(row1.Cells("burstTime").Value))
-            '        Else
-            '            totalSum += 1 'increments the totalBurstTime to 1 because there is no value to be next in line
-            '        End If
-
-            '    End If
-
-            'End While
-#End Region
-
-            Dim currentTime As Integer = 0
-            While dataGridView.Rows.Count < data.Count
-                Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ArrivalTime).ToList()
-
-                If eligibleProcesses.Count > 0 Then
-                    Dim firstProcess As Process = eligibleProcesses(0)
-                    dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
-                    currentTime += firstProcess.BurstTime
-                Else
-                    currentTime += 1 ' Increment the currentTime by 1 because there is no eligible process to be scheduled
-                End If
-            End While
+            data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.BurstTime).ThenBy(Function(p) p.ProcessID).ToList()
         ElseIf currentPage = "PRIO" Then
-            Dim currentTime As Integer = 0
-            While dataGridView.Rows.Count < data.Count
-                Dim eligibleProcesses = data.Where(Function(p) p.ArrivalTime <= currentTime AndAlso Not dataGridView.Rows.Cast(Of DataGridViewRow)().Any(Function(row) row.Cells("processID").Value.ToString() = p.ProcessID)).OrderBy(Function(p) p.Priority).ThenBy(Function(p) p.ArrivalTime).ToList()
-
-                If eligibleProcesses.Count > 0 Then
-                    Dim firstProcess As Process = eligibleProcesses(0)
-                    dataGridView.Rows.Add(firstProcess.ProcessID, firstProcess.ArrivalTime, firstProcess.BurstTime)
-                    currentTime += firstProcess.BurstTime
-                Else
-                    currentTime += 1 ' Increment the currentTime by 1 because there is no eligible process to be scheduled
-                End If
-            End While
-
+            data = data.OrderBy(Function(p) p.ArrivalTime).ThenBy(Function(p) p.Priority).ThenBy(Function(p) p.ProcessID).ToList()
         End If
 
+        dataGridView.Rows.Clear()
+        tableGanttChart.Controls.Clear()
+        tableGanttChart.ColumnStyles.Clear()
+        tableGanttChart.ColumnCount = 0
+        Dim currentColumn As Integer = 0
+        Dim currentTime As Integer = 0
+
+        ' Add sorted data and idle states to the Gantt Chart
+        For Each process In data
+            ' Add idle state if there is a gap between processes
+            If process.ArrivalTime > currentTime Then
+                Dim idleTime = process.ArrivalTime - currentTime
+
+                Dim idleLabel As New Label()
+                idleLabel.Text = "Idle"
+                idleLabel.TextAlign = ContentAlignment.MiddleCenter
+                idleLabel.BackColor = Color.Gray
+                idleLabel.Dock = DockStyle.Fill
+                Dim idleColumnWidth As Integer = CInt((idleTime / data.Sum(Function(p) p.BurstTime)) * (tableGanttChart.Width - 1)) ' Subtracting 1 to account for the last column adjustment
+                tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, idleColumnWidth))
+                tableGanttChart.Controls.Add(idleLabel, currentColumn, 0)
+                currentColumn += 1
+
+                currentTime += idleTime
+            End If
+
+            ' Add the process to the Gantt Chart
+            Dim label As New Label()
+            label.Text = process.ProcessID
+            label.TextAlign = ContentAlignment.MiddleCenter
+            label.BackColor = Color.LightBlue
+            label.Dock = DockStyle.Fill
+            Dim columnWidth As Integer = CInt((process.BurstTime / data.Sum(Function(p) p.BurstTime)) * (tableGanttChart.Width - 1)) ' Subtracting 1 to account for the last column adjustment
+            tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, columnWidth))
+            tableGanttChart.Controls.Add(label, currentColumn, 0)
+
+            currentColumn += 1
+            currentTime += process.BurstTime
+
+            ' Add the process to the DataGridView
+            dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
+        Next
+
+        ' Adjust the last column width to ensure it is fully visible
+        tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100)) ' Adding a last column with percent size of 100 to fill the remaining space
     End Sub
 
 #End Region
