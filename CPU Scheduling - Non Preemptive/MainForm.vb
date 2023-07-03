@@ -91,6 +91,7 @@ Public Class MainForm
             btnAddRow.Enabled = False
             btnRemoveRow.Enabled = False
             btnClear.Enabled = False
+            btnRandom.Enabled = False
 
             btnStart.BackColor = Color.FromArgb(192, 57, 43)
             btnStart.FlatAppearance.MouseDownBackColor = Color.FromArgb(231, 76, 60)
@@ -102,6 +103,7 @@ Public Class MainForm
             btnAddRow.Enabled = True
             btnRemoveRow.Enabled = True
             btnClear.Enabled = True
+            btnRandom.Enabled = True
 
             btnStart.BackColor = Color.FromArgb(39, 174, 96)
             btnStart.FlatAppearance.MouseDownBackColor = Color.FromArgb(46, 204, 113)
@@ -120,6 +122,7 @@ Public Class MainForm
             btnAddRow.Enabled = True
             btnRemoveRow.Enabled = True
             btnClear.Enabled = True
+            btnRandom.Enabled = True
             btnStart.Text = "Start"
 
             btnStart.BackColor = Color.FromArgb(39, 174, 96)
