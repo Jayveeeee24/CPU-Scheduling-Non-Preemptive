@@ -110,6 +110,7 @@ Public Class MainForm
             Exit Sub
         End If
 
+        datagridComputation.Rows.Clear()
         If compute(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Stop" Then
             MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
@@ -161,6 +162,9 @@ Public Class MainForm
 
         datagridInitial.Rows.Clear()
         datagridComputation.Rows.Clear()
+        tableGanttChart.Controls.Clear()
+        tableGanttChart.ColumnStyles.Clear()
+        tableGanttChart.ColumnCount = 0
         currentRowNumber = 1
         For i As Integer = 0 To randomRows
             btnAddRow.PerformClick()
@@ -247,7 +251,7 @@ Public Class MainForm
 
         Dim loopCount As Integer
 
-        SortDataGridView()
+        SortDataGridView(waitTime)
 
         datagridComputation.Rows.Clear()
 
@@ -509,7 +513,7 @@ Public Class MainForm
     'End Sub
 #End Region
 
-    Private Sub SortDataGridView()
+    Private Sub SortDataGridView(waitTime As Integer)
         Dim dataGridView As DataGridView = datagridInitial
 
         ' Get the data from the DataGridView
@@ -579,7 +583,7 @@ Public Class MainForm
             label.BackColor = Color.LightBlue
             label.Dock = DockStyle.Fill
             Dim columnWidth As Integer = CInt((process.BurstTime / data.Sum(Function(p) p.BurstTime)) * (tableGanttChart.Width - 1)) ' Subtracting 1 to account for the last column adjustment
-            wait(0.6)
+            wait(waitTime)
             tableGanttChart.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, columnWidth))
             tableGanttChart.Controls.Add(label, currentColumn, 0)
 
