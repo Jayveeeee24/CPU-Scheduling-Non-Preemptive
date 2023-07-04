@@ -114,7 +114,7 @@ Public Class MainForm
         End If
 
         datagridComputation.Rows.Clear()
-        If compute(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Stop" Then
+        If scheduleCPU(0.6) = datagridInitial.Rows.Count - 1 And btnStart.Text = "Stop" Then
             MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
             datagridInitial.ClearSelection()
@@ -135,7 +135,7 @@ Public Class MainForm
         If cellValidation() = True Then
             Exit Sub
         End If
-        compute(0)
+        scheduleCPU(0)
         MsgBox("CPU SCHEDULE FINISHED!", vbInformation, "PROCESS FINISHED")
 
         datagridInitial.ClearSelection()
@@ -253,7 +253,7 @@ Public Class MainForm
         labelTurn.Text = ""
         labelWait.Text = ""
     End Sub
-    Private Function compute(waitTime As Integer) As Integer
+    Private Function scheduleCPU(waitTime As Integer) As Integer
 
         Dim loopCount As Integer
 
@@ -300,8 +300,8 @@ Public Class MainForm
         datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
         datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
 
-        labelAveWait.Text = (Math.Round(totalWaitingTime / datagridInitial.Rows.Count, 2)).ToString("N2")
-        labelAveTurn.Text = (Math.Round(totalTurnaroundTime / datagridInitial.Rows.Count, 2)).ToString("N2")
+        labelAveWait.Text = (Math.Round(totalWaitingTime / datagridInitial.Rows.Count, 2)).ToString("N2") & " ms"
+        labelAveTurn.Text = (Math.Round(totalTurnaroundTime / datagridInitial.Rows.Count, 2)).ToString("N2") & " ms"
 
 
         Return loopCount
