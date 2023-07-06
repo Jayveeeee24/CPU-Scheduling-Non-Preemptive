@@ -52,7 +52,7 @@ Public Class MainForm
 #End Region
 
 
-#Region "     FCFS CONTROLS"
+#Region "     CONTROLS"
     Private Sub btnAddRow_Click(sender As Object, e As EventArgs) Handles btnAddRow.Click
         datagridInitial.Rows.Add("P" & currentRowNumber.ToString("D2"), "", "")
         currentRowNumber += 1
@@ -140,6 +140,10 @@ Public Class MainForm
     End Sub
     Private Sub btnFinish_Click(sender As Object, e As EventArgs) Handles btnFinish.Click
         If cellValidation() = True Then
+            Exit Sub
+        End If
+        If datagridInitial.Rows.Count < 1 Then
+            MsgBox("NO DATA TO SIMULATE!", vbCritical, "PROCESS FINISHED")
             Exit Sub
         End If
         scheduleCPU(0)

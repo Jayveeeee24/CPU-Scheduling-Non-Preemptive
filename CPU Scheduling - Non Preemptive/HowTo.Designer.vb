@@ -80,6 +80,7 @@ Partial Class HowTo
         Me.ClientSize = New System.Drawing.Size(826, 423)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "HowTo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
