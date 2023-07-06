@@ -80,6 +80,8 @@ Public Class MainForm
         tableGanttChart.ColumnCount = 0
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+
+
         'cell validation
         If cellValidation() = True Then
             Exit Sub
@@ -158,7 +160,7 @@ Public Class MainForm
         End If
     End Sub
     Private Sub btnInfo_Click(sender As Object, e As EventArgs) Handles btnInfo.Click
-
+        HowTo.Show()
     End Sub
     Private Sub btnRandom_Click(sender As Object, e As EventArgs) Handles btnRandom.Click
         Dim random As New Random()
@@ -255,6 +257,11 @@ Public Class MainForm
     End Sub
     Private Function scheduleCPU(waitTime As Integer) As Integer
 
+        If datagridInitial.Rows.Count < 1 Then
+            MsgBox("NO DATA TO SIMULATE!", vbCritical, "PROCESS FINISHED")
+            Exit Function
+        End If
+
         Dim loopCount As Integer
 
         SortDataGridView(waitTime)
@@ -298,7 +305,7 @@ Public Class MainForm
         Next
 
         datagridInitial.Sort(datagridInitial.Columns(0), ListSortDirection.Ascending)
-        datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
+        'datagridComputation.Sort(datagridComputation.Columns(0), ListSortDirection.Ascending)
 
         labelAveWait.Text = (Math.Round(totalWaitingTime / datagridInitial.Rows.Count, 2)).ToString("N2") & " ms"
         labelAveTurn.Text = (Math.Round(totalTurnaroundTime / datagridInitial.Rows.Count, 2)).ToString("N2") & " ms"
@@ -311,7 +318,6 @@ Public Class MainForm
         Public Property ProcessID As String
         Public Property ArrivalTime As Integer
         Public Property BurstTime As Integer
-
         Public Property Priority As Integer
     End Class
 
