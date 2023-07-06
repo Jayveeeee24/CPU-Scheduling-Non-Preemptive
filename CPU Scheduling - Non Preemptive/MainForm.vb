@@ -87,6 +87,11 @@ Public Class MainForm
             Exit Sub
         End If
 
+        If datagridInitial.Rows.Count < 1 Then
+            MsgBox("NO DATA TO SIMULATE!", vbCritical, "PROCESS FINISHED")
+            Exit Sub
+        End If
+
         'checking of buttons if start or stop
         If (btnStart.Text = "Start") Then
             btnStart.Text = "Stop"
@@ -257,10 +262,7 @@ Public Class MainForm
     End Sub
     Private Function scheduleCPU(waitTime As Integer) As Integer
 
-        If datagridInitial.Rows.Count < 1 Then
-            MsgBox("NO DATA TO SIMULATE!", vbCritical, "PROCESS FINISHED")
-            Exit Function
-        End If
+
 
         Dim loopCount As Integer
 
