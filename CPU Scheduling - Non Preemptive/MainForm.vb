@@ -409,7 +409,11 @@ Public Class MainForm
             currentTime += process.BurstTime
 
             ' Add the process to the DataGridView
-            dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
+            If currentPage = "PRIO" Then
+                dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime, process.Priority)
+            Else
+                dataGridView.Rows.Add(process.ProcessID, process.ArrivalTime, process.BurstTime)
+            End If
         Next
 
         ' Adjust the last column width to ensure it is fully visible
